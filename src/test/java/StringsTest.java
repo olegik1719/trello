@@ -1,12 +1,12 @@
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class StringsTest {
 
     @Test
     public void countDigits() {
         int test = Strings.countDigits("qw123awse4wq");
-        assert test == 4;
+        assertEquals("It's not right!", test, 4);
     }
 }
