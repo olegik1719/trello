@@ -1,6 +1,8 @@
 public class Strings {
     public static int countDigits(String string){
-
-        return 0;
+        int result = 0;
+        for (int i = 0; i < string.length(); i++)
+            if(Character.isDigit(string.charAt(i))) result ++;
+        return result;
     }
 }
