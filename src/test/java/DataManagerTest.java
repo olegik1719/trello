@@ -19,6 +19,8 @@ public class DataManagerTest {
         statement.execute("INSERT INTO Persons VALUES(1, 'HELLO', 'HELLO','HELLO','HELLO')");
         statement.execute("INSERT INTO Persons VALUES(2, 'JOHN','JOHN','JOHN','JOHN')");
         ResultSet resultSet = statement.executeQuery("SELECT * FROM Persons");
-        System.out.printf("%s",resultSet.getFetchSize());
+        while (resultSet.next()){
+            System.out.printf("%s%n", resultSet.getString(2));
+        }
     }
 }
