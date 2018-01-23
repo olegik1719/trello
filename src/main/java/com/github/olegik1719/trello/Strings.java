@@ -1,3 +1,5 @@
+package com.github.olegik1719.trello;
+
 public class Strings {
     
     public static int countDigits(String string){

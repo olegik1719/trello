@@ -1,3 +1,5 @@
+package com.github.olegik1719.trello;
+
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 import java.beans.PropertyVetoException;
