@@ -15,7 +15,7 @@ public class SortingArray{
             result.add(comparables.get(i));
         for (int i = 0; i < size-1; i++) {
             for (int j = 0; j < size - i -1; j++) {
-                if (result.get(j).compareTo(result.get(j + 1)) > 0)
+                if ((result.get(j).compareTo(result.get(j + 1)) > 0)==order)
                     result.set(j,result.set(j+1,result.get(j)));
             }
         }
