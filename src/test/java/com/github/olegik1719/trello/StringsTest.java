@@ -1,3 +1,6 @@
+package com.github.olegik1719.trello;
+
+import com.github.olegik1719.trello.Strings;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

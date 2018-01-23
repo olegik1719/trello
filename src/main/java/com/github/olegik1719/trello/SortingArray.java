@@ -1,10 +1,12 @@
+package com.github.olegik1719.trello;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class SortingArray{
     /**
      *
-     * @param comparables -- ArrayList to sorting
+     * @param dataArray -- ArrayList to sorting
      * @param order -- ascending (default) or re descending order
      * @return sorted copy of source arrayList.
      */
@@ -17,7 +19,7 @@ public class SortingArray{
                     result.set(j,result.set(j+1,result.get(j)));
             }
         }
-        if (!order) return Collections.reverse(result);
+        if (!order) Collections.reverse(result);
         return result;
     }
 
