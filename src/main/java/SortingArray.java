@@ -6,8 +6,7 @@ public class SortingArray{
      *
      * @param comparables -- ArrayList to sorting
      * @param order -- ascending (default) or re descending order
-     * @param <T>
-     * @return
+     * @return sorted copy of source arrayList.
      */
     public static <T extends Comparable> ArrayList<T> bubbleSort(ArrayList<T> comparables, boolean order){
         int size = comparables.size();
