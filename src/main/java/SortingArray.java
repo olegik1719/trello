@@ -11,8 +11,6 @@ public class SortingArray{
     public static <T extends Comparable> ArrayList<T> bubbleSort(ArrayList<T> dataArray, boolean order){
         int size = dataArray.size();
         ArrayList<T> result = new ArrayList<>(dataArray);
-        for (int i = 0; i < size; i++)
-            result.add(dataArray.get(i));
         for (int i = 0; i < size-1; i++) {
             for (int j = 0; j < size - i -1; j++) {
                 if (result.get(j).compareTo(result.get(j + 1)) > 0)
