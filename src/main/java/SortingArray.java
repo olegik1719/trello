@@ -8,11 +8,11 @@ public class SortingArray{
      * @param order -- ascending (default) or re descending order
      * @return sorted copy of source arrayList.
      */
-    public static <T extends Comparable> ArrayList<T> bubbleSort(ArrayList<T> comparables, boolean order){
-        int size = comparables.size();
+    public static <T extends Comparable> ArrayList<T> bubbleSort(ArrayList<T> dataArray, boolean order){
+        int size = dataArray.size();
         ArrayList<T> result = new ArrayList<>(size);
         for (int i = 0; i < size; i++)
-            result.add(comparables.get(i));
+            result.add(dataArray.get(i));
         for (int i = 0; i < size-1; i++) {
             for (int j = 0; j < size - i -1; j++) {
                 if ((result.get(j).compareTo(result.get(j + 1)) > 0)==order)
@@ -22,7 +22,7 @@ public class SortingArray{
         return result;
     }
 
-    public static <T extends Comparable> ArrayList<T> bubbleSort(ArrayList<T> comparables){
-        return bubbleSort(comparables, true);
+    public static <T extends Comparable> ArrayList<T> bubbleSort(ArrayList<T> dataArray){
+        return bubbleSort(dataArray, true);
     }
 }
