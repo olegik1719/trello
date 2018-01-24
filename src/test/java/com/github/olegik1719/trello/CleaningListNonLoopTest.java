@@ -22,7 +22,7 @@ public class CleaningListNonLoopTest {
         }
         System.out.printf("%n");
 
-        ArrayList<Integer> cleanedList = CleaningListNonLoop.removeDuplicates(arrayList);
+        List<Integer> cleanedList = CleaningListNonLoop.removeDuplicates(arrayList);
         for (int i: cleanedList) {
             System.out.printf("%s ", i);
         }
