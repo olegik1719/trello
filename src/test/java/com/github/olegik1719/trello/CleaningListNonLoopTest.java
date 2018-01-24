@@ -13,10 +13,11 @@ public class CleaningListNonLoopTest {
     public void removeDuplicates() {
         int max = 10;
         List<Integer> arrayList = new ArrayList<>();
-        for (int i = 0; i < max; i++)
+        for (int i = 0; i < max; i++) {
+            int r = (int)(java.lang.Math.random()*100);
             for (int j = 0; j < i; j++)
-                arrayList.add(max - i);
-
+                arrayList.add(r);
+        }
         for (int i: arrayList) {
             System.out.printf("%s ", i);
         }
