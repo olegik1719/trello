@@ -5,7 +5,6 @@ import java.util.*;
 public class FreeList<E> extends ArrayList <E> {
 
 
-    //@throws IndexOutOfBoundsException
 
     private void rangeCheck(int index){
         if (index < 0) throw new IndexOutOfBoundsException();
@@ -17,11 +16,25 @@ public class FreeList<E> extends ArrayList <E> {
         }
     }
 
+    public FreeList(){
+        super();
+    }
+
+    public FreeList(Collection<? extends E> c){
+        super(c);
+    }
+
+    public FreeList(int beginingSize){
+        super(beginingSize);
+        rangeCheck(beginingSize-1);
+    }
+
     @Override
     public E get(int index) {
         rangeCheck(index);
         return super.get(index);
     }
+
     @Override
     public E set(int index, E element) {
         rangeCheck(index);
@@ -45,5 +58,4 @@ public class FreeList<E> extends ArrayList <E> {
         rangeCheck(index);
         return super.addAll(index,c);
     }
-
 }
