@@ -43,7 +43,7 @@ public class FreeList<E> extends ArrayList <E> {
 
     @Override
     public void add(int index, E element) {
-        rangeCheck(index);
+        rangeCheck(index-1);
         super.add(index,element);
     }
 
@@ -55,7 +55,7 @@ public class FreeList<E> extends ArrayList <E> {
 
     @Override
     public boolean addAll(int index, Collection<? extends E> c) {
-        rangeCheck(index);
+        rangeCheck(index-1);
         return super.addAll(index,c);
     }
 }
