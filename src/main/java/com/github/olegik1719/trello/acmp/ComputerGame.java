@@ -24,15 +24,19 @@ import static java.lang.Math.min;
 public class ComputerGame {
     public static int minimalEnergy(int[] platforms){
         int size = platforms.length;
-        int[] needEnergy = new int[size];
-        needEnergy[0] = 0;
-        needEnergy[1] = abs(platforms[1] - platforms[0]);
+        int needEnergyCurrent=0;
+        int needEnergyToPrevPrevious = 0;
+        int needEnergyToPrevious = abs(platforms[1] - platforms[0]);
+
         for (int i = 2; i < size; i++) {
-            int needEnergyPrevPrev = needEnergy[i-2] + 3 * abs(platforms[i]-platforms[i-2]);
-            int needEnergyPrev = needEnergy[i-1] +  abs(platforms[i]-platforms[i-1]);
-            needEnergy[i] = min(needEnergyPrevPrev,needEnergyPrev);
+
+            int needEnergyViaPrevPrev = needEnergyToPrevPrevious + 3 * abs(platforms[i]-platforms[i-2]);
+            int needEnergyViaPrev = needEnergyToPrevious +  abs(platforms[i]-platforms[i-1]);
+            needEnergyCurrent = min(needEnergyViaPrevPrev,needEnergyViaPrev);
+            needEnergyToPrevPrevious = needEnergyToPrevious;
+            needEnergyToPrevious = needEnergyCurrent;
         }
-        return needEnergy[size - 1];
+        return needEnergyCurrent;
     }
 
 }
