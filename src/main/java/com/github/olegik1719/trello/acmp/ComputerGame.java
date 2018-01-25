@@ -1,5 +1,8 @@
 package com.github.olegik1719.trello.acmp;
 
+import static java.lang.Math.abs;
+import static java.lang.Math.min;
+
 /**
  * https://acmp.ru/index.asp?main=task&id_task=29
  * Во многих старых играх с двумерной графикой можно столкнуться с подобной ситуацией.
@@ -19,4 +22,17 @@ package com.github.olegik1719.trello.acmp;
  */
 
 public class ComputerGame {
+    public static int minimalEnergy(int[] platforms){
+        int size = platforms.length;
+        int[] needEnergy = new int[size];
+        needEnergy[0] = 0;
+        needEnergy[1] = abs(platforms[1] - platforms[0]);
+        for (int i = 2; i < size; i++) {
+            int needEnergyPrevPrev = needEnergy[i-2] + 3 * abs(platforms[i]-platforms[i-2]);
+            int needEnergyPrev = needEnergy[i-1] +  abs(platforms[i]-platforms[i-1]);
+            needEnergy[i] = min(needEnergyPrevPrev,needEnergyPrev);
+        }
+        return needEnergy[size - 1];
+    }
+
 }
