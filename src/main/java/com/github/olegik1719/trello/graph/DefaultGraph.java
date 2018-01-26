@@ -1,19 +1,15 @@
 package com.github.olegik1719.trello.graph;
 
-import lombok.EqualsAndHashCode;
-
 import java.util.*;
 
 public class DefaultGraph implements Graph<Integer> {
 
-    private HashSet<Integer> vertices;
+    private HashSet<Vertex<Integer>> vertices;
     private HashSet<Edge<Integer>> edges;
-    private HashMap<Integer,Collection<Integer>> neighbors;
 
     public DefaultGraph(){
         vertices = new HashSet<>();
         edges = new HashSet<>();
-        neighbors = new HashMap<>();
     }
 
     public DefaultGraph(Graph<Integer> other){
@@ -24,65 +20,40 @@ public class DefaultGraph implements Graph<Integer> {
         }
     }
 
+    @Override
     public DefaultGraph copy(Graph<Integer> original){
         return new DefaultGraph(original);
     }
 
-    @EqualsAndHashCode
-    private class DefaultEdge implements Edge<Integer>{
-
-        private final Integer begin;
-        private final Integer end;
-
-        private DefaultEdge(Integer first, Integer second){
-            if (first.compareTo(second)>=0){
-                begin = second;
-                end = first;
-            }else {
-                begin = first;
-                end = second;
-            }
-        }
-
-        @Override
-        public Integer getBegin() {
-            return begin;
-        }
-
-        @Override
-        public Integer getEnd(){
-            return end;
-        }
+    public boolean addVertex(Integer value){
+        return addVertex(new DefaultVertex(value));
     }
 
     @Override
-    public boolean add(Integer verticle) {
-        if (vertices.add(verticle) ){
-            neighbors.put(verticle,new ArrayList<>());
-            return true;
-        }
-        return false;
+    public boolean addVertex(Vertex<Integer> vertex) {
+        return  vertices.add(vertex);
     }
 
-    public boolean addEdge(Integer begin,Integer end) {
-        if (vertices.contains(begin) && vertices.contains(end)){
-            neighbors.get(begin).add(end);
-            neighbors.get(end).add(begin);
-            return edges.add(new DefaultEdge(begin, end));
-        }
-        return false;
+    public boolean addEdge(Integer begin, Integer end){
+        return addEdge(new DefaultVertex(begin),new DefaultVertex(end));
+    }
+
+    public boolean addEdge(Vertex<Integer> begin,Vertex<Integer> end) {
+        return vertices.contains(begin) && vertices.contains(end)&& edges.add(new DefaultEdge(begin, end));
     }
 
     @Override
     public boolean addEdge(Edge<Integer> edge) {
-        //Integer[] points = edge.getVertices();
-        //if (points.length > 2) throw new RuntimeException();
         return addEdge(edge.getBegin(),edge.getEnd());
     }
 
-    @Override
     public boolean isEdge(Integer begin, Integer end) {
-        //create new Edge and look it in edges.
+        Edge<Integer> edge = new DefaultEdge(new DefaultVertex(begin), new DefaultVertex(end));
+        return edges.contains(edge);
+    }
+
+    @Override
+    public boolean isEdge(Vertex<Integer> begin, Vertex<Integer> end) {
         Edge<Integer> edge = new DefaultEdge(begin, end);
         return edges.contains(edge);
     }
@@ -98,8 +69,8 @@ public class DefaultGraph implements Graph<Integer> {
     }
 
     @Override
-    public Collection<Integer> getNeighbours(Integer vertex) {
-        return neighbors.get(vertex);
+    public Collection<Vertex<Integer>> getNeighbours(Vertex<Integer> vertex) {
+        return vertex.getNeighbours();
     }
 
     @Override
@@ -108,7 +79,7 @@ public class DefaultGraph implements Graph<Integer> {
     }
 
     @Override
-    public Collection<Integer> getVertices() {
+    public Collection<Vertex<Integer>> getVertices() {
         return new ArrayList<>(vertices);
     }
 }

@@ -4,23 +4,25 @@ import java.util.Collection;
 
 public interface Graph<T> {
     /**
-     * Adding Verticle to Graph
-     * @param vertex
+     * Adding Vertices to Graph
+     * @param vertex - new vertex for graph
      * @return true if it is added
      *         false if it isn't added
      */
-    boolean add(T vertex);
+    boolean addVertex(Vertex<T> vertex);
 
     /**
      * Adding Edge
-     * @param edge
+     * @param edge -- new Edge for graph
      * @return false is this edge was in graph yet
      */
     boolean addEdge(Edge<T> edge);
-    boolean isEdge(T begin, T end);
+    boolean isEdge(Vertex<T> begin, Vertex<T> end);
     int getVerticesCount();
     int getEdgesCount();
-    Collection<T> getNeighbours(T verticle);
+    Collection<Vertex<T>> getNeighbours(Vertex<T> vertex);
     Collection<Edge<T>> getEdges();
-    Collection<T> getVertices();
+    Collection<Vertex<T>> getVertices();
+
+    Graph<T> copy(Graph<T> original);
 }
