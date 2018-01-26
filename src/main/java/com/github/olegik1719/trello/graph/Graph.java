@@ -1,6 +1,11 @@
 package com.github.olegik1719.trello.graph;
 
+import com.sun.tools.internal.xjc.model.CElementPropertyInfo;
+
+import java.util.Collection;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public interface Graph<T> {
     /**
@@ -10,11 +15,18 @@ public interface Graph<T> {
      *         false if it isn't added
      */
     boolean add(T verticle);
-    boolean addEdge(T begin, T end);
+
+    /**
+     * Adding Edge
+     * @param edge
+     * @return false is this edge was in graph yet
+     */
+    boolean addEdge(Edge<T> edge);
     boolean isEdge(T begin, T end);
-    List<T> getVericles();
+    Collection<T> getVericles();
     int getVerticlesCount();
     int getEdgesCount();
-    List<T> neighbors(T verticle);
-    List<Edge<T>> edges();
+    Collection<T> neighbors(T verticle);
+    Collection<Edge<T>> edges();
+    Collection<T> verticles();
 }
