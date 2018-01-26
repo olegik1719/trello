@@ -10,11 +10,11 @@ import java.util.stream.Collectors;
 public interface Graph<T> {
     /**
      * Adding Verticle to Graph
-     * @param verticle
+     * @param vertex
      * @return true if it is added
      *         false if it isn't added
      */
-    boolean add(T verticle);
+    boolean add(T vertex);
 
     /**
      * Adding Edge
@@ -23,10 +23,9 @@ public interface Graph<T> {
      */
     boolean addEdge(Edge<T> edge);
     boolean isEdge(T begin, T end);
-    Collection<T> getVericles();
-    int getVerticlesCount();
+    int getVerticesCount();
     int getEdgesCount();
     Collection<T> getNeighbours(T verticle);
     Collection<Edge<T>> getEdges();
-    Collection<T> getVerticles();
+    Collection<T> getVertices();
 }

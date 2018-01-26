@@ -6,12 +6,12 @@ import java.util.*;
 
 public class DefaultGraph implements Graph<Integer> {
 
-    private HashSet<Integer> verticles;
+    private HashSet<Integer> vertices;
     private HashSet<Edge<Integer>> edges;
     private HashMap<Integer,Collection<Integer>> neighbors;
 
     public DefaultGraph(){
-        verticles = new HashSet<>();
+        vertices = new HashSet<>();
         edges = new HashSet<>();
         neighbors = new HashMap<>();
     }
@@ -33,14 +33,14 @@ public class DefaultGraph implements Graph<Integer> {
         }
 
         @Override
-        public Integer[] getVerticles() {
+        public Integer[] getVertices() {
             return new Integer[]{begin,end};
         }
     }
 
     @Override
     public boolean add(Integer verticle) {
-        if (verticles.add(verticle) ){
+        if (vertices.add(verticle) ){
             neighbors.put(verticle,new ArrayList<>());
             return true;
         }
@@ -48,7 +48,7 @@ public class DefaultGraph implements Graph<Integer> {
     }
 
     public boolean addEdge(Integer begin,Integer end) {
-        if (verticles.contains(begin) && verticles.contains(end)){
+        if (vertices.contains(begin) && vertices.contains(end)){
             neighbors.get(begin).add(end);
             neighbors.get(end).add(begin);
             return edges.add(new DefaultEdge(begin, end));
@@ -58,7 +58,7 @@ public class DefaultGraph implements Graph<Integer> {
 
     @Override
     public boolean addEdge(Edge<Integer> edge) {
-        Integer[] points = edge.getVerticles();
+        Integer[] points = edge.getVertices();
         if (points.length > 2) throw new RuntimeException();
         return addEdge(points[0],points[1]);
     }
@@ -71,13 +71,8 @@ public class DefaultGraph implements Graph<Integer> {
     }
 
     @Override
-    public Collection<Integer> getVericles() {
-        return (Collection<Integer>) verticles.clone();
-    }
-
-    @Override
-    public int getVerticlesCount() {
-        return verticles.size();
+    public int getVerticesCount() {
+        return vertices.size();
     }
 
     @Override
@@ -86,17 +81,17 @@ public class DefaultGraph implements Graph<Integer> {
     }
 
     @Override
-    public Collection<Integer> getNeighbours(Integer verticle) {
-        return neighbors.get(verticle);
+    public Collection<Integer> getNeighbours(Integer vertex) {
+        return neighbors.get(vertex);
     }
 
     @Override
     public Collection<Edge<Integer>> getEdges() {
-        return (Collection<Edge<Integer>>) edges.clone();
+        return new ArrayList<>(edges);
     }
 
     @Override
-    public Collection<Integer> getVerticles() {
-        return (Collection<Integer>)verticles.clone();
+    public Collection<Integer> getVertices() {
+        return new ArrayList<>(vertices);
     }
 }
