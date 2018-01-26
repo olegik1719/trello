@@ -48,17 +48,17 @@ public class DefaultGraph implements Graph<Integer> {
     }
 
     @Override
-    public Collection<Integer> neighbours(Integer verticle) {
+    public Collection<Integer> getNeighbours(Integer verticle) {
         return neighbors.get(verticle);
     }
 
     @Override
-    public Collection<Edge<Integer>> edges() {
-        return null;
+    public Collection<Edge<Integer>> getEdges() {
+        return (Collection<Edge<Integer>>) edges.clone();
     }
 
     @Override
-    public Collection<Integer> verticles() {
-        return null;
+    public Collection<Integer> getVerticles() {
+        return (Collection<Integer>)verticles.clone();
     }
 }
