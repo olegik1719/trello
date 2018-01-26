@@ -26,7 +26,7 @@ public interface Graph<T> {
     Collection<T> getVericles();
     int getVerticlesCount();
     int getEdgesCount();
-    Collection<T> neighbors(T verticle);
+    Collection<T> neighbours(T verticle);
     Collection<Edge<T>> edges();
     Collection<T> verticles();
 }
