@@ -15,4 +15,6 @@ public interface Graph<T> {
     List<T> getVericles();
     int getVerticlesCount();
     int getEdgesCount();
+    List<T> neighbors(T verticle);
+    List<Edge<T>> edges();
 }
