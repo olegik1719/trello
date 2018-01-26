@@ -8,7 +8,7 @@ public class DefaultGraph implements Graph<Integer> {
 
     private HashSet<Integer> verticles;
     private HashSet<Edge<Integer>> edges;
-    private HashMap<Integer,List<Integer>> neighbors;
+    private HashMap<Integer,Collection<Integer>> neighbors;
 
     public DefaultGraph(){
         verticles = new HashSet<>();
@@ -40,11 +40,20 @@ public class DefaultGraph implements Graph<Integer> {
 
     @Override
     public boolean add(Integer verticle) {
-        return verticles.add(verticle);
+        if (verticles.add(verticle) ){
+            neighbors.put(verticle,new ArrayList<>());
+            return true;
+        }
+        return false;
     }
 
     public boolean addEdge(Integer begin,Integer end) {
-        return verticles.contains(begin) && verticles.contains(end) && edges.add(new DefaultEdge(begin, end));
+        if (verticles.contains(begin) && verticles.contains(end)){
+            neighbors.get(begin).add(end);
+            neighbors.get(end).add(begin);
+            return edges.add(new DefaultEdge(begin, end));
+        }
+        return false;
     }
 
     @Override
