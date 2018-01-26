@@ -17,12 +17,12 @@ public class DefaultGraph implements Graph<Integer> {
     }
 
     @EqualsAndHashCode
-    private class EdgeDefault implements Edge<Integer>{
+    private class DefaultEdge implements Edge<Integer>{
 
         private final Integer begin;
         private final Integer end;
 
-        private EdgeDefault(Integer first, Integer second){
+        private DefaultEdge(Integer first, Integer second){
             if (first.compareTo(second)>=0){
                 begin = second;
                 end = first;
@@ -44,7 +44,7 @@ public class DefaultGraph implements Graph<Integer> {
     }
 
     public boolean addEdge(Integer begin,Integer end) {
-        return verticles.contains(begin) && verticles.contains(end) && edges.add(new EdgeDefault(begin, end));
+        return verticles.contains(begin) && verticles.contains(end) && edges.add(new DefaultEdge(begin, end));
     }
 
     @Override
@@ -57,7 +57,8 @@ public class DefaultGraph implements Graph<Integer> {
     @Override
     public boolean isEdge(Integer begin, Integer end) {
         //create new Edge and look it in edges.
-        return false;
+        Edge<Integer> edge = new DefaultEdge(begin, end);
+        return edges.contains(edge);
     }
 
     @Override
