@@ -16,6 +16,18 @@ public class DefaultGraph implements Graph<Integer> {
         neighbors = new HashMap<>();
     }
 
+    public DefaultGraph(Graph<Integer> other){
+        this();
+        vertices.addAll(other.getVertices());
+        for (Edge<Integer> edge: other.getEdges()){
+            addEdge(edge);
+        }
+    }
+
+    public DefaultGraph copy(Graph<Integer> original){
+        return new DefaultGraph(original);
+    }
+
     @EqualsAndHashCode
     private class DefaultEdge implements Edge<Integer>{
 
