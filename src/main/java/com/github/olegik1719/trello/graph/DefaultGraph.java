@@ -45,8 +45,13 @@ public class DefaultGraph implements Graph<Integer> {
         }
 
         @Override
-        public Integer[] getVertices() {
-            return new Integer[]{begin,end};
+        public Integer getBegin() {
+            return begin;
+        }
+
+        @Override
+        public Integer getEnd(){
+            return end;
         }
     }
 
@@ -70,9 +75,9 @@ public class DefaultGraph implements Graph<Integer> {
 
     @Override
     public boolean addEdge(Edge<Integer> edge) {
-        Integer[] points = edge.getVertices();
-        if (points.length > 2) throw new RuntimeException();
-        return addEdge(points[0],points[1]);
+        //Integer[] points = edge.getVertices();
+        //if (points.length > 2) throw new RuntimeException();
+        return addEdge(edge.getBegin(),edge.getEnd());
     }
 
     @Override
