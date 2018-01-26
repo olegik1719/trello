@@ -1,14 +1,21 @@
 package com.github.olegik1719.trello;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
 public class FreeListTest {
 
+    FreeList<Integer> freeList;
+
+    @Before
+    public void setUp() throws Exception {
+        freeList = new FreeList<>(1_000);
+    }
+
     @Test
     public void get() {
-        FreeList<Integer> freeList = new FreeList<>(1_000);
         assertEquals(freeList.size(),1_000);
         assertNull(freeList.get(999_999));
         assertEquals(freeList.size(),1_000_000);
@@ -16,7 +23,6 @@ public class FreeListTest {
 
     @Test
     public void set() {
-        FreeList<Integer> freeList = new FreeList<>(1_000);
         assertEquals(freeList.size(),1_000);
         assertNull(freeList.set(999_999, 1_000));
         assertEquals(freeList.size(),1_000_000);
@@ -24,7 +30,6 @@ public class FreeListTest {
 
     @Test
     public void remove() {
-        FreeList<Integer> freeList = new FreeList<>(1_000);
         assertEquals(freeList.size(),1_000);
         assertNull(freeList.remove(999_999));
         assertEquals(freeList.size(),999_999);
@@ -32,10 +37,10 @@ public class FreeListTest {
 
     @Test
     public void add() {
-        FreeList<Integer> freeList = new FreeList<>(1_000);
         assertEquals(freeList.size(),1_000);
         freeList.add(999_999, 1_000);
         assertEquals(freeList.size(),1_000_000);
         assertEquals((Object)freeList.get(999_999),1_000);
     }
+
 }
