@@ -30,7 +30,6 @@ public class DefaultGraph implements Graph<Integer> {
                 begin = first;
                 end = second;
             }
-
         }
 
         @Override
@@ -44,11 +43,15 @@ public class DefaultGraph implements Graph<Integer> {
         return verticles.add(verticle);
     }
 
-
+    public boolean addEdge(Integer begin,Integer end) {
+        return verticles.contains(begin) && verticles.contains(end) && edges.add(new EdgeDefault(begin, end));
+    }
 
     @Override
     public boolean addEdge(Edge<Integer> edge) {
-        return edges.add(edge);
+        Integer[] points = edge.getVerticles();
+        if (points.length > 2) throw new RuntimeException();
+        return addEdge(points[0],points[1]);
     }
 
     @Override
