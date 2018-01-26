@@ -12,11 +12,18 @@ public interface Graph<T> {
     boolean addVertex(Vertex<T> vertex);
 
     /**
+     * Check is this Vertex in Graph
+     * @param vertex -- vertex for check
+     * @return true if Graph include this vertex
+     */
+    boolean isVertex(Vertex<T> vertex);
+    /**
      * Adding Edge
      * @param edge -- new Edge for graph
      * @return false is this edge was in graph yet
      */
     boolean addEdge(Edge<T> edge);
+
     boolean isEdge(Vertex<T> begin, Vertex<T> end);
     int getVerticesCount();
     int getEdgesCount();

@@ -34,12 +34,24 @@ public class DefaultGraph implements Graph<Integer> {
         return  vertices.add(vertex);
     }
 
+    @Override
+    public boolean isVertex(Vertex<Integer> vertex) {
+        return vertices.contains(vertex);
+    }
+
     public boolean addEdge(Integer begin, Integer end){
         return addEdge(new DefaultVertex(begin),new DefaultVertex(end));
     }
 
     public boolean addEdge(Vertex<Integer> begin,Vertex<Integer> end) {
-        return vertices.contains(begin) && vertices.contains(end)&& edges.add(new DefaultEdge(begin, end));
+        if (isVertex(begin) && isVertex(end)){
+            if (edges.add(new DefaultEdge(begin,end))){
+                begin.addNeighbour(end);
+                end.addNeighbour(begin);
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -48,14 +60,12 @@ public class DefaultGraph implements Graph<Integer> {
     }
 
     public boolean isEdge(Integer begin, Integer end) {
-        Edge<Integer> edge = new DefaultEdge(new DefaultVertex(begin), new DefaultVertex(end));
-        return edges.contains(edge);
+        return isEdge(new DefaultVertex(begin), new DefaultVertex(end));
     }
 
     @Override
     public boolean isEdge(Vertex<Integer> begin, Vertex<Integer> end) {
-        Edge<Integer> edge = new DefaultEdge(begin, end);
-        return edges.contains(edge);
+        return edges.contains(new DefaultEdge(begin, end));
     }
 
     @Override
