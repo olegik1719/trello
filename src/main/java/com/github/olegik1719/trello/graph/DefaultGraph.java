@@ -1,5 +1,7 @@
 package com.github.olegik1719.trello.graph;
 
+import lombok.EqualsAndHashCode;
+
 import java.util.*;
 
 public class DefaultGraph implements Graph<Integer> {
@@ -12,6 +14,29 @@ public class DefaultGraph implements Graph<Integer> {
         verticles = new HashSet<>();
         edges = new HashSet<>();
         neighbors = new HashMap<>();
+    }
+
+    @EqualsAndHashCode
+    private class EdgeDefault implements Edge<Integer>{
+
+        private final Integer begin;
+        private final Integer end;
+
+        private EdgeDefault(Integer first, Integer second){
+            if (first.compareTo(second)>=0){
+                begin = second;
+                end = first;
+            }else {
+                begin = first;
+                end = second;
+            }
+
+        }
+
+        @Override
+        public Integer[] getVerticles() {
+            return new Integer[]{begin,end};
+        }
     }
 
     @Override
