@@ -45,12 +45,22 @@ public abstract class AbstractGraph<T> implements Graph<T> {
 
     @Override
     public boolean addEdge(Edge<T> edge, boolean force) {
+        T begin = edge.getBegin();
+        T end = edge.getEnd();
         if (force){
-            addVertex(edge.getBegin());
-            addVertex(edge.getEnd());
+            addVertex(begin);
+            addVertex(end);
+            vertices.get(begin).add(end);
+            if(!edge.isOriented()) vertices.get(end).add(begin);
             return edges.add(edge);
+        }else{
+            if(isVertex(edge.getBegin())&&isVertex(edge.getEnd())){
+                vertices.get(begin).add(end);
+                if(!edge.isOriented()) vertices.get(end).add(begin);
+                return edges.add(edge);
+            }
         }
-        return isVertex(edge.getBegin()) && isVertex(edge.getEnd()) && edges.add(edge);
+        return false;
     }
 
     @Override
