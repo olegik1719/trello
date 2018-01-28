@@ -6,5 +6,6 @@ public interface Edge<T> {
     default Number getPrice(){
         return 1;
     }
-    Edge<T> getOpposite();
+
+    boolean isOriented();
 }

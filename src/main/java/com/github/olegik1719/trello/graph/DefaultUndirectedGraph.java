@@ -10,7 +10,7 @@ public class DefaultUndirectedGraph extends AbstractGraph<Integer>{
     public boolean addEdge(Edge<Integer> edge, boolean force) {
         boolean result = super.addEdge(edge,force);
         super.addEdge(edge.getOpposite());
-        return super.addEdge(edge, force);
+        return result;
     }
 
     public DefaultUndirectedGraph(Graph<Integer> original){
