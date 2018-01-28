@@ -9,27 +9,41 @@ public interface Graph<T> {
      * @return true if it is added
      *         false if it isn't added
      */
-    boolean addVertex(Vertex<T> vertex);
+    boolean addVertex(T vertex);
 
     /**
      * Check is this Vertex in Graph
      * @param vertex -- vertex for check
      * @return true if Graph include this vertex
      */
-    boolean isVertex(Vertex<T> vertex);
+    boolean isVertex(T vertex);
+
+    Collection<T> getVertices();
+    Collection<T> getNeighbours(T vertex);
+
     /**
      * Adding Edge
      * @param edge -- new Edge for graph
-     * @return false is this edge was in graph yet
+     * @return false is this edge was in graph yet, or one of vertices doesn't exist
      */
-    boolean addEdge(Edge<T> edge);
+    default boolean addEdge(Edge<T> edge){
+        return addEdge(edge, false);
+    }
 
-    boolean isEdge(Vertex<T> begin, Vertex<T> end);
+    /**
+     * Adding Edge
+     * @param edge -- new Edge for graph
+     * @param force -- add Vertices of edge to Graph
+     * @return false if this edge exists in graph.
+     */
+    boolean addEdge(Edge<T> edge, boolean force);
+
+    Collection<Edge<T>> getEdges();
+
+
+    boolean isEdge(T begin, T end);
     int getVerticesCount();
     int getEdgesCount();
-    Collection<Vertex<T>> getNeighbours(Vertex<T> vertex);
-    Collection<Edge<T>> getEdges();
-    Collection<Vertex<T>> getVertices();
 
     Graph<T> copy(Graph<T> original);
 }
