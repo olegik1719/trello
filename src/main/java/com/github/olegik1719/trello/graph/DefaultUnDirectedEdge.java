@@ -4,19 +4,9 @@ import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode
 public class DefaultUnDirectedEdge<T> extends AbstractEdge<T> {
-    final boolean oriented;
-
-    public DefaultUnDirectedEdge(T begin, T end, boolean oriented) {
-        super(begin, end);
-        this.oriented = oriented;
-    }
+    final boolean oriented = false;
 
     public DefaultUnDirectedEdge(T begin, T end) {
-        this(begin, end, false);
-    }
-
-    @Override
-    public boolean isOriented() {
-        return oriented;
+        super(begin, end, false);
     }
 }

@@ -4,6 +4,7 @@ public abstract class AbstractEdge<T> implements Edge<T> {
     private final T begin;
     private final T end;
     private final boolean oriented;
+    private final Number price = 1;
 
     public AbstractEdge(T begin, T end, boolean oriented) {
         this.begin = begin;
@@ -28,5 +29,10 @@ public abstract class AbstractEdge<T> implements Edge<T> {
     @Override
     public boolean isOriented() {
         return oriented;
+    }
+
+    @Override
+    public Number getPrice(){
+        return price;
     }
 }
