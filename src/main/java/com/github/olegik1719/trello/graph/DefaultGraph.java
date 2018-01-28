@@ -1,18 +1,18 @@
 package com.github.olegik1719.trello.graph;
 
-public class DefaultGraph extends AbstractGraph<Integer>{
+public class DefaultGraph<T> extends AbstractGraph<T>{
 
     public DefaultGraph(){
         super();
     }
 
-    public DefaultGraph(Graph<Integer> original){
+    public DefaultGraph(Graph<T> original){
         super(original);
 
     }
 
     @Override
-    public Graph copy(Graph original) {
+    public Graph<T> copy(Graph<T> original) {
         return new DefaultGraph(original);
     }
 }
