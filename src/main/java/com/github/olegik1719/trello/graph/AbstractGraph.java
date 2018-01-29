@@ -4,7 +4,7 @@ import java.util.*;
 
 
 public abstract class AbstractGraph<T> implements Graph<T> {
-    private Map<T, Collection<T>> vertices;
+    private Map<T, Map<T,Collection<Edge<T>>>> vertices;
     private Collection<Edge<T>> edges;
 
 
@@ -22,7 +22,7 @@ public abstract class AbstractGraph<T> implements Graph<T> {
     @Override
     public boolean addVertex(T vertex) {
         if (!isVertex(vertex)){
-            vertices.put(vertex, new HashSet<>());
+            vertices.put(vertex, new HashMap<>());
             return true;
         }
         return false;
@@ -40,7 +40,7 @@ public abstract class AbstractGraph<T> implements Graph<T> {
 
     @Override
     public Collection<T> getNeighbours(T vertex) {
-        return vertices.get(vertex);
+        return vertices.get(vertex).keySet();
     }
 
     @Override
@@ -51,9 +51,19 @@ public abstract class AbstractGraph<T> implements Graph<T> {
             addVertex(begin);
             addVertex(end);
         }
-        if(isVertex(edge.getBegin())&&isVertex(edge.getEnd())){
-            vertices.get(begin).add(end);
-            if(!edge.isOriented()) vertices.get(end).add(begin);
+        if(isVertex(begin)&&isVertex(end)){
+            Set<T> beginNeighbours = vertices.get(begin).keySet();
+            if (!beginNeighbours.contains(end)){
+                vertices.get(begin).put(end,new HashSet<>());
+            }
+            vertices.get(begin).get(end).add(edge);
+            if(!edge.isOriented()){
+                Set<T> endNeighbours = vertices.get(end).keySet();
+                if (!beginNeighbours.contains(begin)){
+                    vertices.get(end).put(begin,new HashSet<>());
+                }
+                vertices.get(end).get(begin).add(edge);
+            }
             return edges.add(edge);
         }
         return false;
@@ -66,7 +76,7 @@ public abstract class AbstractGraph<T> implements Graph<T> {
 
     @Override
     public boolean isEdge(T begin, T end) {
-        return vertices.get(begin).contains(end);
+        return vertices.get(begin).keySet().contains(end) && (vertices.get(begin).get(end).size() > 0);
     }
 
     @Override
@@ -84,5 +94,33 @@ public abstract class AbstractGraph<T> implements Graph<T> {
         return String.format("Vertices:%n%s: %s%nEdges:%n%s: %s%n",vertices.size(), getVertices(),edges.size(),getEdges());
     }
 
+    @Override
+    public boolean removeEdge(Edge<T> edge) {
+        T begin = edge.getBegin();
+        T end = edge.getEnd();
+        boolean result = vertices.get(begin).get(end).remove(edge);
+        if (edge.isOriented()){
+            result &= vertices.get(end).get(begin).remove(edge);
+        }
+        return result;
+    }
 
+    @Override
+    public boolean removeEdge(T begin, T end) {
+        return removeEdge(begin,end, false);
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public boolean removeEdge(T begin, T end, boolean removeAll) {
+        Edge<T>[] edgesBeginEnd = (Edge<T>[]) vertices.get(begin).get(end).toArray();
+        boolean result = removeEdge(edgesBeginEnd[0]);
+
+        if (removeAll){
+            for (int i = 1; i < edgesBeginEnd.length; i++) {
+                result &= removeEdge(edgesBeginEnd[i]);
+            }
+        }
+        return result;
+    }
 }

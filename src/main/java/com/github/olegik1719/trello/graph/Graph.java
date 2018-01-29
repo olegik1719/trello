@@ -55,5 +55,34 @@ public interface Graph<T> {
     int getVerticesCount();
     int getEdgesCount();
 
+    /**
+     * Remove edge from graph.
+     * @param edge -- What we want remove
+     * @return succesful?
+     */
+    boolean removeEdge(Edge<T> edge);
+
+    /**
+     * Remove random edge from begin to end
+     * @param begin -- from where
+     * @param end -- to where
+     * @return successfully?
+     */
+    default boolean removeEdge(T begin, T end){
+        return removeEdge(begin,end, false);
+    }
+
+    /**
+     * Remove random edge from begin to end
+     * @param begin -- from where
+     * @param end -- to where
+     * @param removeAll -- true if you want remove all
+     * @return successfully?
+     */
+
+    boolean removeEdge(T begin, T end, boolean removeAll);
+//    boolean removeVertex(T vertex);
+//    boolean removeAllVertex(Collection<T> vertices);
+
     Graph<T> copy(Graph<T> original);
 }
