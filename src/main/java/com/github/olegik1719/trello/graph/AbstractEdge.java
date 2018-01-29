@@ -1,5 +1,8 @@
 package com.github.olegik1719.trello.graph;
 
+import lombok.EqualsAndHashCode;
+
+@EqualsAndHashCode
 public abstract class AbstractEdge<T> implements Edge<T> {
     private final T begin;
     private final T end;

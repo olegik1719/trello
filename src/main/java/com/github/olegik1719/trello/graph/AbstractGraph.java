@@ -47,18 +47,14 @@ public abstract class AbstractGraph<T> implements Graph<T> {
     public boolean addEdge(Edge<T> edge, boolean force) {
         T begin = edge.getBegin();
         T end = edge.getEnd();
-        if (force){
+        if (force) {
             addVertex(begin);
             addVertex(end);
+        }
+        if(isVertex(edge.getBegin())&&isVertex(edge.getEnd())){
             vertices.get(begin).add(end);
             if(!edge.isOriented()) vertices.get(end).add(begin);
             return edges.add(edge);
-        }else{
-            if(isVertex(edge.getBegin())&&isVertex(edge.getEnd())){
-                vertices.get(begin).add(end);
-                if(!edge.isOriented()) vertices.get(end).add(begin);
-                return edges.add(edge);
-            }
         }
         return false;
     }
@@ -81,6 +77,11 @@ public abstract class AbstractGraph<T> implements Graph<T> {
     @Override
     public int getEdgesCount() {
         return edges.size();
+    }
+
+    @Override
+    public String toString(){
+        return String.format("Vertices:%n%s: %s%nEdges:%n%s: %s%n",vertices.size(),vertices,edges.size(),edges);
     }
 
 
