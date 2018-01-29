@@ -128,6 +128,10 @@ public class UnorientedChecker extends DefaultGraph<String> {
 
     @Override
     public String toString() {
-        return String.format("Vertices:%n%s: %s%nEdges:%n%s: %s%n",vertices.size(), getVertices(),edges.size(),getEdges());
+        StringBuilder stringBuilder = new StringBuilder();
+        for(String vertex: vertices.keySet()){
+            stringBuilder.append(String.format("%s: %s%n",vertex,vertices.get(vertex)));
+        }
+        return stringBuilder.toString();//String.format("Vertices:%n%s: %s%nEdges:%n%s: %s%n",vertices.size(), getVertices(),edges.size(),getEdges());
     }
 }
