@@ -117,19 +117,13 @@ public abstract class AbstractGraph<T> implements Graph<T> {
         return removeEdge(begin,end, false);
     }
 
-    public boolean removeEdge(Object edge){
-
-        return removeEdge((AbstractEdge<T>) edge);
-    }
-
     @Override
-    @SuppressWarnings("unchecked")
     public boolean removeEdge(T begin, T end, boolean removeAll) {
         Object[] edgesBeginEnd = vertices.get(begin).get(end).toArray();
-        boolean result = removeEdge(edgesBeginEnd[0]);
+        boolean result = removeEdge((AbstractEdge<T>)edgesBeginEnd[0]);
         if (removeAll){
             for (int i = 1; i < edgesBeginEnd.length; i++) {
-                result &= removeEdge(edgesBeginEnd[i]);
+                result &= removeEdge((AbstractEdge<T>)edgesBeginEnd[i]);
             }
         }
         return result;
@@ -138,13 +132,11 @@ public abstract class AbstractGraph<T> implements Graph<T> {
     @Override
     public boolean removeVertex(T vertex, boolean force) {
         if (force){
-            for (T neighbour: vertices.get(vertex).keySet())
-                removeEdge(vertex, neighbour, true);
-            for (T potential:vertices.keySet())
-                if (vertices.get(potential).keySet().contains(vertex))
-                    for (Edge<T> edge: vertices.get(potential).get(vertex)) {
-                        removeEdge(edge);
-                    }
+            for (Edge<T> edge: edges) {
+                if (edge.getEnd().equals(vertex)||edge.getBegin().equals(vertex)){
+                    removeEdge(edge);
+                }
+            }
         }else {
             for (Edge<T> edge: edges) {
                 if (edge.getEnd().equals(vertex)||edge.getBegin().equals(vertex)){
@@ -155,6 +147,4 @@ public abstract class AbstractGraph<T> implements Graph<T> {
         vertices.remove(vertex);
         return true;
     }
-
-    //public Map<T, >
 }

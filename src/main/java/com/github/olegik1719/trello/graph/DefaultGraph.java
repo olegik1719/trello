@@ -8,7 +8,6 @@ public class DefaultGraph<T> extends AbstractGraph<T>{
 
     public DefaultGraph(Graph<T> original){
         super(original);
-
     }
 
     @Override
