@@ -81,8 +81,19 @@ public interface Graph<T> {
      */
 
     boolean removeEdge(T begin, T end, boolean removeAll);
-//    boolean removeVertex(T vertex);
-//    boolean removeAllVertex(Collection<T> vertices);
+
+    default boolean removeVertex(T vertex){
+        return removeVertex(vertex, false);
+    }
+    boolean removeVertex(T vertex, boolean force);
+
+    default boolean removeAllVertex(Collection<T> vertices){
+        boolean result = true;
+        for (T vertex: vertices) {
+            result &= removeVertex(vertex);
+        }
+        return result;
+    }
 
     Graph<T> copy(Graph<T> original);
 }

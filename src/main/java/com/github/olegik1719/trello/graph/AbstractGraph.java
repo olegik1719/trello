@@ -59,7 +59,7 @@ public abstract class AbstractGraph<T> implements Graph<T> {
             vertices.get(begin).get(end).add(edge);
             if(!edge.isOriented()){
                 Set<T> endNeighbours = vertices.get(end).keySet();
-                if (!beginNeighbours.contains(begin)){
+                if (!endNeighbours.contains(begin)){
                     vertices.get(end).put(begin,new HashSet<>());
                 }
                 vertices.get(end).get(begin).add(edge);
@@ -99,9 +99,10 @@ public abstract class AbstractGraph<T> implements Graph<T> {
         T begin = edge.getBegin();
         T end = edge.getEnd();
         boolean result = vertices.get(begin).get(end).remove(edge);
-        if (edge.isOriented()){
+        if (!edge.isOriented()){
             result &= vertices.get(end).get(begin).remove(edge);
         }
+        result &= edges.remove(edge);
         return result;
     }
 
@@ -110,12 +111,16 @@ public abstract class AbstractGraph<T> implements Graph<T> {
         return removeEdge(begin,end, false);
     }
 
+    public boolean removeEdge(Object edge){
+
+        return removeEdge((AbstractEdge<T>) edge);
+    }
+
     @Override
     @SuppressWarnings("unchecked")
     public boolean removeEdge(T begin, T end, boolean removeAll) {
-        Edge<T>[] edgesBeginEnd = (Edge<T>[]) vertices.get(begin).get(end).toArray();
+        Object[] edgesBeginEnd = vertices.get(begin).get(end).toArray();
         boolean result = removeEdge(edgesBeginEnd[0]);
-
         if (removeAll){
             for (int i = 1; i < edgesBeginEnd.length; i++) {
                 result &= removeEdge(edgesBeginEnd[i]);
@@ -123,4 +128,25 @@ public abstract class AbstractGraph<T> implements Graph<T> {
         }
         return result;
     }
+
+    @Override
+    public boolean removeVertex(T vertex, boolean force) {
+        if (force){
+            for (T neighbour: vertices.get(vertex).keySet())
+                removeEdge(vertex, neighbour, true);
+            for (Edge<T> edge: edges)
+                if (edge.getEnd().equals(vertex))
+                    removeEdge(edge);
+        }else {
+            for (Edge<T> edge: edges) {
+                if (edge.getEnd().equals(vertex)||edge.getBegin().equals(vertex)){
+                    return false;
+                }
+            }
+        }
+        vertices.remove(vertex);
+        return true;
+    }
+
+    //public Map<T, >
 }
