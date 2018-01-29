@@ -14,20 +14,20 @@ public class UnorientedChecker extends DefaultGraph<String> {
     private Collection<Edge<String>> edges;
 
     private class StringUnorientedWeightEdge extends DefaultEdge<String>{
-        public StringUnorientedWeightEdge(String begin, String end, Number price) {
+        StringUnorientedWeightEdge(String begin, String end, Number price) {
             super(begin, end, false, price);
         }
 
-        public StringUnorientedWeightEdge(String begin, String end) {
+        StringUnorientedWeightEdge(String begin, String end) {
             super(begin, end,false);
         }
     }
 
-    public UnorientedChecker(String[][] table){
+    UnorientedChecker(String[][] table){
         vertices = new HashMap<>();
         edges = new HashSet<>();
-        for (int i = 0; i < table.length; i++) {
-            addEdges(table[i]);
+        for (String[] aTable : table) {
+            addEdges(aTable);
         }
     }
 
@@ -41,7 +41,7 @@ public class UnorientedChecker extends DefaultGraph<String> {
         return addEdge(edge.getBegin(),edge.getEnd(),edge.getPrice(), force);
     }
 
-    public boolean addEdge(String begin, String end, Number price, boolean force){
+    private boolean addEdge(String begin, String end, Number price, boolean force){
         StringUnorientedWeightEdge edge = new StringUnorientedWeightEdge(begin,end,price);
         if (force){
             addVertex(begin);
@@ -52,13 +52,13 @@ public class UnorientedChecker extends DefaultGraph<String> {
         return edges.add(edge);
     }
 
-    public UnorientedChecker addEdges(String[] table){
+    private void addEdges(String[] table){
         if (table.length < 1) throw new RuntimeException();
         else addVertex(table[0]);
         for (int i = 1; i < table.length; i++) {
-            addEdge(table[0],table[i],1,true);
+            addEdge(new StringUnorientedWeightEdge(table[0],table[i]),true);
         }
-        return this;
+        //return this;
     }
 
     @Override
@@ -132,6 +132,7 @@ public class UnorientedChecker extends DefaultGraph<String> {
         for(String vertex: vertices.keySet()){
             stringBuilder.append(String.format("%s: %s%n",vertex,vertices.get(vertex)));
         }
-        return stringBuilder.toString();//String.format("Vertices:%n%s: %s%nEdges:%n%s: %s%n",vertices.size(), getVertices(),edges.size(),getEdges());
+        return stringBuilder.toString();
+        //String.format("Vertices:%n%s: %s%nEdges:%n%s: %s%n",vertices.size(), getVertices(),edges.size(),getEdges());
     }
 }
