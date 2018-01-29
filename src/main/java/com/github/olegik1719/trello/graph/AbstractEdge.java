@@ -7,22 +7,22 @@ public abstract class AbstractEdge<T> implements Edge<T> {
     private final boolean oriented;
     private final Number price;
 
-    public AbstractEdge(T begin, T end, boolean oriented, Number price) {
+    AbstractEdge(T begin, T end, boolean oriented, Number price) {
         this.begin = begin;
         this.end = end;
         this.oriented = oriented;
         this.price = price;
     }
 
-    public AbstractEdge(T begin, T end, boolean oriented){
+    AbstractEdge(T begin, T end, boolean oriented){
         this(begin,end,oriented,DEFAULT_PRICE);
     }
 
-    public AbstractEdge(T begin, T end, Number price){
+    AbstractEdge(T begin, T end, Number price){
         this(begin,end,false,price);
     }
 
-    public AbstractEdge(T begin, T end){
+    AbstractEdge(T begin, T end){
         this(begin, end, false);
     }
 
@@ -56,7 +56,7 @@ public abstract class AbstractEdge<T> implements Edge<T> {
         if (o == this) return true;
         if (!(o instanceof AbstractEdge)) return false;
         final AbstractEdge other = (AbstractEdge) o;
-        if (!other.canEqual((Object) this)) return false;
+        if (!other.canEqual(this)) return false;
         final Object this$begin = this.getBegin();
         final Object other$begin = other.getBegin();
         final Object this$end = this.getEnd();
@@ -69,10 +69,8 @@ public abstract class AbstractEdge<T> implements Edge<T> {
         if (this.isOriented() != other.isOriented()) return false;
         else {
             if (!this.isOriented()) {
-                if (((this$begin.equals(other$begin)) && (this$end.equals(other$end)))
-                        || ((this$begin.equals(other$end)) && (this$end.equals(other$begin)))){
-                    return true;
-                }else return false;
+                return ((this$begin.equals(other$begin)) && (this$end.equals(other$end)))
+                        || ((this$begin.equals(other$end)) && (this$end.equals(other$begin)));
             }else{
                 if ( !this$begin.equals(other$begin)) return false;
                 if ( !this$end.equals(other$end)) return false;
@@ -80,8 +78,7 @@ public abstract class AbstractEdge<T> implements Edge<T> {
         }
         final Object this$price = this.getPrice();
         final Object other$price = other.getPrice();
-        if (this$price == null ? other$price != null : !this$price.equals(other$price)) return false;
-        return true;
+        return this$price == null ? other$price == null : this$price.equals(other$price);
     }
 
     public int hashCode() {
