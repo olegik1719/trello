@@ -10,6 +10,14 @@ public interface Graph<T> {
      *         false if it isn't added
      */
     boolean addVertex(T vertex);
+    default boolean addVertices(T[] vertices){
+        boolean result = true;
+        for (T vertex: vertices) result &= addVertex(vertex);
+        return result;
+    }
+    default boolean addVertices(Collection<T> vertices){
+        return addVertices((T[])vertices.toArray());
+    }
 
     /**
      * Check is this Vertex in Graph

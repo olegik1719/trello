@@ -35,4 +35,9 @@ public abstract class AbstractEdge<T> implements Edge<T> {
     public Number getPrice(){
         return price;
     }
+
+    @Override
+    public String toString(){
+        return begin.toString() + (oriented? '-':'<') + "->" + end.toString();
+    }
 }

@@ -10,7 +10,7 @@ public abstract class AbstractGraph<T> implements Graph<T> {
 
     public AbstractGraph(){
         vertices = new HashMap<>();
-        edges = new TreeSet<>();
+        edges = new HashSet<>();
     }
 
     public AbstractGraph(Graph<T> original){
