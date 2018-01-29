@@ -2,13 +2,20 @@ package com.github.olegik1719.trello.graph;
 
 public class DefaultEdge<T> extends AbstractEdge<T> {
 
-    @SuppressWarnings("")
+    public DefaultEdge(T begin, T end, boolean oriented, Number price){
+        super(begin,end,oriented, price);
+    }
+
+    public DefaultEdge(T begin, T end, Number price){
+        super(begin,end,price);
+    }
+
     public DefaultEdge(T begin, T end, boolean oriented) {
         super(begin,end,oriented);
     }
 
     public DefaultEdge(T begin, T end) {
-        this(begin, end, false);
+        super(begin, end);
     }
 
     protected boolean canEqual(Object other) {

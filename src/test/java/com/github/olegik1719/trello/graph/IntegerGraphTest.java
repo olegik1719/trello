@@ -47,6 +47,9 @@ public class IntegerGraphTest {
         assertTrue(integerGraph.addEdge(new DefaultEdge<>(54,23),true));
         //isEdge
         assertTrue(integerGraph.isEdge(23,54));
+        integerGraph.addEdge(new DefaultEdge<>(47,94,true,10), true);
+        assertTrue(integerGraph.isEdge(47,94));
+        assertFalse(integerGraph.isEdge(94,47));
 
     }
 }

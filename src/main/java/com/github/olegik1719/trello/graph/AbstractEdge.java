@@ -2,8 +2,6 @@ package com.github.olegik1719.trello.graph;
 
 import lombok.EqualsAndHashCode;
 
-import javax.xml.bind.annotation.XmlType;
-
 @EqualsAndHashCode
 public abstract class AbstractEdge<T> implements Edge<T> {
     private final static int DEFAULT_PRICE = 1;
