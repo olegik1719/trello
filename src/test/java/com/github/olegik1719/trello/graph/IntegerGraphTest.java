@@ -36,20 +36,17 @@ public class IntegerGraphTest {
 
     @Test
     public void fullTest(){
-        //showStatus("In beginning");
+        showStatus("In beginning");
         int sizeVertices = integerGraph.getVerticesCount();
         int sizeEdges = integerGraph.getEdgesCount();
-        integerGraph.addVertex(47);
-        //showStatus("Add one Vertex");
-            assertEquals(++sizeVertices,integerGraph.getVerticesCount());
-        System.out.printf("%s",integerGraph.addEdge(new DefaultEdge<>(54,23)));
-        //showStatus("Try add one edge, no force");
-            assertEquals(sizeEdges,integerGraph.getEdgesCount());
-            assertEquals(sizeVertices,integerGraph.getVerticesCount());
-        System.out.printf("%s",integerGraph.addEdge(new DefaultEdge<>(54,23),true));
-        System.out.printf("%s",integerGraph.addEdge(new DefaultEdge<>(54,23)));
-        //showStatus("Try add one edge, force");
-        //    assertEquals(++sizeEdges,integerGraph.getEdgesCount());
-        //    assertEquals(++sizeVertices,integerGraph.getVerticesCount());
+        //addVertex
+        assertTrue(integerGraph.addVertex(47));
+        assertEquals(++sizeVertices,integerGraph.getVerticesCount());
+        // addEdge
+        assertFalse(integerGraph.addEdge(new DefaultEdge<>(54,23)));
+        assertTrue(integerGraph.addEdge(new DefaultEdge<>(54,23),true));
+        //isEdge
+        assertTrue(integerGraph.isEdge(23,54));
+
     }
 }

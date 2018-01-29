@@ -2,22 +2,35 @@ package com.github.olegik1719.trello.graph;
 
 import lombok.EqualsAndHashCode;
 
+import javax.xml.bind.annotation.XmlType;
+
 @EqualsAndHashCode
 public abstract class AbstractEdge<T> implements Edge<T> {
+    private final static int DEFAULT_PRICE = 1;
     private final T begin;
     private final T end;
     private final boolean oriented;
-    private final Number price = 1;
+    private final Number price;
 
-    public AbstractEdge(T begin, T end, boolean oriented) {
+    public AbstractEdge(T begin, T end, boolean oriented, Number price) {
         this.begin = begin;
         this.end = end;
         this.oriented = oriented;
+        this.price = price;
+    }
+
+    public AbstractEdge(T begin, T end, boolean oriented){
+        this(begin,end,oriented,DEFAULT_PRICE);
+    }
+
+    public AbstractEdge(T begin, T end, Number price){
+        this(begin,end,false,price);
     }
 
     public AbstractEdge(T begin, T end){
         this(begin, end, false);
     }
+
 
     @Override
     public T getBegin() {
@@ -41,6 +54,6 @@ public abstract class AbstractEdge<T> implements Edge<T> {
 
     @Override
     public String toString(){
-        return begin.toString() + (oriented? '-':'<') + "->" + end.toString();
+        return begin.toString() + (oriented? '-':'<') + "-" + price + "->" + end.toString();
     }
 }

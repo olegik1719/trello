@@ -81,7 +81,7 @@ public abstract class AbstractGraph<T> implements Graph<T> {
 
     @Override
     public String toString(){
-        return String.format("Vertices:%n%s: %s%nEdges:%n%s: %s%n",vertices.size(),vertices,edges.size(),edges);
+        return String.format("Vertices:%n%s: %s%nEdges:%n%s: %s%n",vertices.size(), getVertices(),edges.size(),getEdges());
     }
 
 
