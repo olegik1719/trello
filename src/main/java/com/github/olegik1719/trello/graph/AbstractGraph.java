@@ -40,7 +40,13 @@ public abstract class AbstractGraph<T> implements Graph<T> {
 
     @Override
     public Collection<T> getNeighbours(T vertex) {
-        return vertices.get(vertex).keySet();
+        Set<T> result = new HashSet<>();
+        for (T neighbour: vertices.get(vertex).keySet()) {
+            if (!vertices.get(vertex).get(neighbour).isEmpty()){
+                result.add(neighbour);
+            }
+        }
+        return result;
     }
 
     @Override
@@ -134,9 +140,11 @@ public abstract class AbstractGraph<T> implements Graph<T> {
         if (force){
             for (T neighbour: vertices.get(vertex).keySet())
                 removeEdge(vertex, neighbour, true);
-            for (Edge<T> edge: edges)
-                if (edge.getEnd().equals(vertex))
-                    removeEdge(edge);
+            for (T potential:vertices.keySet())
+                if (vertices.get(potential).keySet().contains(vertex))
+                    for (Edge<T> edge: vertices.get(potential).get(vertex)) {
+                        removeEdge(edge);
+                    }
         }else {
             for (Edge<T> edge: edges) {
                 if (edge.getEnd().equals(vertex)||edge.getBegin().equals(vertex)){
