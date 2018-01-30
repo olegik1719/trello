@@ -7,10 +7,10 @@ import static org.junit.Assert.*;
 
 public class FreeListTest {
 
-    FreeList<Integer> freeList;
+    private FreeList<Integer> freeList;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         freeList = new FreeList<>(1_000);
     }
 
@@ -25,26 +25,25 @@ public class FreeListTest {
     public void set() {
         int added = 1_000;
         int position = 999_999;
-        assertEquals(1_000,freeList.size());
         assertNull(freeList.set(position, added));
         assertEquals(added, freeList.get(position).intValue());
-        assertEquals(1_000_000,freeList.size());
+        assertEquals(position + 1,freeList.size());
     }
 
     @Test
     public void remove() {
-        assertEquals(1_000,freeList.size());
+        int currentsize = freeList.size();
         assertNull(freeList.remove(999_999));
-        assertEquals(1_000,freeList.size());
+        assertEquals(currentsize,freeList.size());
     }
 
     @Test
     public void add() {
         int added = 1000;
-        assertEquals(1_000,freeList.size());
-        freeList.add(999_999, added);
-        assertEquals(freeList.size(),1_000_000);
-        assertEquals(added, freeList.get(999_999).intValue());
+        int index = 999_999;
+        freeList.add(index, added);
+        assertEquals(index+1,freeList.size());
+        assertEquals(added, freeList.get(index).intValue());
     }
 
 }
