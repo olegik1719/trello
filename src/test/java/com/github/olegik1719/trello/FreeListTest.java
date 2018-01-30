@@ -18,14 +18,14 @@ public class FreeListTest {
     public void get() {
         assertEquals(1_000,freeList.size());
         assertNull(freeList.get(999_999));
-        assertEquals(1_000_000,freeList.size());
+        assertEquals(1_000,freeList.size());
     }
 
     @Test
     public void set() {
         assertEquals(1_000,freeList.size());
         assertNull(freeList.set(999_999, 1_000));
-        assertEquals(1_000,freeList.size());
+        assertEquals(1_000_000,freeList.size());
     }
 
     @Test
