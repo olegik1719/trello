@@ -94,5 +94,13 @@ public interface Graph<T> {
         return result;
     }
 
+    default boolean contains(T vertex){
+        return isVertex(vertex);
+    }
+
+    default boolean contains(Edge<T> edge){
+        return isEdge(edge.getBegin(),edge.getEnd());
+    }
+
     Graph<T> copy(Graph<T> original);
 }
