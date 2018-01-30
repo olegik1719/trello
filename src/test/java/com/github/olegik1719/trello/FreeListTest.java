@@ -8,17 +8,18 @@ import static org.junit.Assert.*;
 public class FreeListTest {
 
     private FreeList<Integer> freeList;
+    private static int beginingSize = 1_000;
 
     @Before
     public void setUp() {
-        freeList = new FreeList<>(1_000);
+        freeList = new FreeList<>(beginingSize);
     }
 
     @Test
     public void get() {
-        assertEquals(1_000,freeList.size());
+        assertEquals(beginingSize,freeList.size());
         assertNull(freeList.get(999_999));
-        assertEquals(1_000,freeList.size());
+        assertEquals(beginingSize,freeList.size());
     }
 
     @Test
@@ -33,7 +34,8 @@ public class FreeListTest {
     @Test
     public void remove() {
         int currentsize = freeList.size();
-        assertNull(freeList.remove(999_999));
+        int bigIndex = 999_999;
+        assertNull(freeList.remove(bigIndex));
         assertEquals(currentsize,freeList.size());
     }
 
