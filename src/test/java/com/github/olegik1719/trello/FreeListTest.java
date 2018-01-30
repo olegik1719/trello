@@ -23,8 +23,11 @@ public class FreeListTest {
 
     @Test
     public void set() {
+        int added = 1_000;
+        int position = 999_999;
         assertEquals(1_000,freeList.size());
-        assertNull(freeList.set(999_999, 1_000));
+        assertNull(freeList.set(position, added));
+        assertEquals(added, freeList.get(position).intValue());
         assertEquals(1_000_000,freeList.size());
     }
 
@@ -37,10 +40,11 @@ public class FreeListTest {
 
     @Test
     public void add() {
+        int added = 1000;
         assertEquals(1_000,freeList.size());
-        freeList.add(999_999, 1_000);
+        freeList.add(999_999, added);
         assertEquals(freeList.size(),1_000_000);
-        assertEquals(1_000, (Object)freeList.get(999_999));
+        assertEquals(added, freeList.get(999_999).intValue());
     }
 
 }
