@@ -6,8 +6,7 @@ public interface Graph<T> {
     /**
      * Adding Vertices to Graph
      * @param vertex - new vertex for graph
-     * @return true if it is added
-     *         false if it isn't added
+     * @return true on success, false otherwise
      */
     boolean addVertex(T vertex);
 
@@ -58,7 +57,7 @@ public interface Graph<T> {
     /**
      * Remove edge from graph.
      * @param edge -- What we want remove
-     * @return succesful?
+     * @return true on success, false otherwise
      */
     boolean removeEdge(Edge<T> edge);
 
@@ -66,7 +65,7 @@ public interface Graph<T> {
      * Remove random edge from begin to end
      * @param begin -- from where
      * @param end -- to where
-     * @return successfully?
+     * @return true on success, false otherwise
      */
     default boolean removeEdge(T begin, T end){
         return removeEdge(begin,end, false);
@@ -77,7 +76,7 @@ public interface Graph<T> {
      * @param begin -- from where
      * @param end -- to where
      * @param removeAll -- true if you want remove all
-     * @return successfully?
+     * @return true on success, false otherwise
      */
 
     boolean removeEdge(T begin, T end, boolean removeAll);

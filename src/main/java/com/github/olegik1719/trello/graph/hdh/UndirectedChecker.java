@@ -1,6 +1,5 @@
 package com.github.olegik1719.trello.graph.hdh;
 
-import com.github.olegik1719.trello.graph.DefaultEdge;
 import com.github.olegik1719.trello.graph.DefaultGraph;
 import com.github.olegik1719.trello.graph.Edge;
 
@@ -9,21 +8,71 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 
-public class UnorientedChecker extends DefaultGraph<String> {
+public class UndirectedChecker extends DefaultGraph<String> {
     private Map<String,Collection<String>> vertices;
     private Collection<Edge<String>> edges;
 
-    private class StringUnorientedWeightEdge extends DefaultEdge<String>{
-        StringUnorientedWeightEdge(String begin, String end, Number price) {
-            super(begin, end, false, price);
+
+
+    private class StringUndirectedWeightEdge implements Edge<String> {
+        private static final int DEFAULT_PRICE = 1;
+        private final String begin;
+        private final String end;
+        private final Number price;
+
+        @Override
+        public int hashCode() {
+            final int PRIME = 59;
+            int result = 1;
+            result = result * PRIME + begin.hashCode() + end.hashCode();
+            final Object $price = this.getPrice();
+            result = result * PRIME + (price == null ? 43 : price.hashCode());
+            return result;
         }
 
-        StringUnorientedWeightEdge(String begin, String end) {
-            super(begin, end,false);
+        public  boolean isEquals(Object object) {
+            if (object == this) return true;
+            if (!(object instanceof StringUndirectedWeightEdge)) return false;
+            final StringUndirectedWeightEdge other = (StringUndirectedWeightEdge) object;
+            boolean result = ((this.begin.equals(other.begin)) && (this.end.equals(other.end)))
+                    || ((this.begin.equals(other.end)) && (this.end.equals(other.begin)));
+
+            return result && (this.price == null ? other.price == null : this.price.equals(other.price));
+        }
+
+
+        StringUndirectedWeightEdge(String begin, String end, Number price) {
+            this.begin = begin;
+            this.end = end;
+            this.price = price;
+        }
+
+        StringUndirectedWeightEdge(String begin, String end) {
+            this (begin, end,DEFAULT_PRICE);
+        }
+
+        @Override
+        public String getBegin() {
+            return begin;
+        }
+
+        @Override
+        public String getEnd() {
+            return end;
+        }
+
+        @Override
+        public Number getPrice() {
+            return price;
+        }
+
+        @Override
+        public boolean isOriented() {
+            return false;
         }
     }
 
-    UnorientedChecker(String[][] table){
+    UndirectedChecker(String[][] table){
         vertices = new HashMap<>();
         edges = new HashSet<>();
         for (String[] aTable : table) {
@@ -42,7 +91,7 @@ public class UnorientedChecker extends DefaultGraph<String> {
     }
 
     private boolean addEdge(String begin, String end, Number price, boolean force){
-        StringUnorientedWeightEdge edge = new StringUnorientedWeightEdge(begin,end,price);
+        StringUndirectedWeightEdge edge = new StringUndirectedWeightEdge(begin,end,price);
         if (force){
             addVertex(begin);
             addVertex(end);
@@ -56,7 +105,7 @@ public class UnorientedChecker extends DefaultGraph<String> {
         if (table.length < 1) throw new RuntimeException();
         else addVertex(table[0]);
         for (int i = 1; i < table.length; i++) {
-            addEdge(new StringUnorientedWeightEdge(table[0],table[i]),true);
+            addEdge(new StringUndirectedWeightEdge(table[0],table[i]),true);
         }
         //return this;
     }

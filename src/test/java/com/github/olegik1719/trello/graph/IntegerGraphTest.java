@@ -10,12 +10,15 @@ public class IntegerGraphTest {
 
     IntegerGraph integerGraph;
 
+
     @Before
     public void setUp() throws Exception {
         integerGraph = new IntegerGraph();
-        integerGraph.addVertex(23);
-        integerGraph.addVertex(56);
-        integerGraph.addEdge(new DefaultEdge<>(23,56,false));
+        int vertex1 = 23;
+        int vertex2 = 56;
+        integerGraph.addVertex(vertex1);
+        integerGraph.addVertex(vertex2);
+        integerGraph.addEdge(new DefaultEdge<>(vertex1,vertex2,false));
     }
 
     @After
@@ -35,18 +38,14 @@ public class IntegerGraphTest {
     }
 
     @Test
-    public void fullTest(){
-        showStatus("In beginning");
-        int sizeVertices = integerGraph.getVerticesCount();
-        int sizeEdges = integerGraph.getEdgesCount();
-        //addVertex
-        assertTrue(integerGraph.addVertex(47));
-        assertEquals(++sizeVertices,integerGraph.getVerticesCount());
-        // addEdge
+    public void addEdge(){
         assertFalse(integerGraph.addEdge(new DefaultEdge<>(54,23)));
+        assertFalse(integerGraph.isEdge(23,54));
+
         assertTrue(integerGraph.addEdge(new DefaultEdge<>(54,23),true));
         //isEdge
         assertTrue(integerGraph.isEdge(23,54));
+
         integerGraph.addEdge(new DefaultEdge<>(47,94,true,10), true);
         assertTrue(integerGraph.isEdge(47,94));
         assertFalse(integerGraph.isEdge(94,47));
@@ -54,11 +53,26 @@ public class IntegerGraphTest {
         assertTrue(integerGraph.isEdge(47,94));
         assertTrue(integerGraph.isEdge(94,47));
         integerGraph.addEdge(new DefaultEdge<>(94,47,true,10), true);
-        showStatus("Before remove Edge(s)");
-        assertTrue(integerGraph.isEdge(47,94));
-        assertTrue(integerGraph.isEdge(94,47));
+    }
+
+    @Test
+    public void removeVertexEdge(){
+        showStatus("In beginning");
+        integerGraph.addVertex(47);
+        integerGraph.addEdge(new DefaultEdge<>(54,23));
+        integerGraph.isEdge(23,54);
+        integerGraph.addEdge(new DefaultEdge<>(54,23),true);
+        integerGraph.addEdge(new DefaultEdge<>(47,94,true,10), true);
+        integerGraph.addEdge(new DefaultEdge<>(47,94,false,10), true);
+        integerGraph.addEdge(new DefaultEdge<>(94,47,true,10), true);
+
+
         integerGraph.removeEdge(47,94, true);
-        showStatus("Before remove Vertex(s)");
+        assertFalse(integerGraph.isEdge(47,94));
+
         integerGraph.removeVertex(23,true);
+        for (int vertex:integerGraph.getVertices()){
+            assertFalse(integerGraph.isEdge(23,vertex));
+        }
     }
 }

@@ -82,7 +82,8 @@ public abstract class AbstractGraph<T> implements Graph<T> {
 
     @Override
     public boolean isEdge(T begin, T end) {
-        return vertices.get(begin).keySet().contains(end) && (vertices.get(begin).get(end).size() > 0);
+        return      (vertices.get(begin) != null && vertices.get(end) == null)
+                &&  (vertices.get(begin).keySet().contains(end) && (vertices.get(begin).get(end).size() > 0));
     }
 
     @Override
@@ -132,7 +133,7 @@ public abstract class AbstractGraph<T> implements Graph<T> {
     @Override
     public boolean removeVertex(T vertex, boolean force) {
         if (force){
-            for (Edge<T> edge: edges) {
+            for (Edge<T> edge: new HashSet<>(edges)) {
                 if (edge.getEnd().equals(vertex)||edge.getBegin().equals(vertex)){
                     removeEdge(edge);
                 }

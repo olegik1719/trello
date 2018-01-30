@@ -4,20 +4,18 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Arrays;
-
 import static org.junit.Assert.*;
 
-public class UnorientedCheckerTest {
+public class UndirectedCheckerTest {
 
-    private UnorientedChecker unorientedCheckerAccessible;
+    private UndirectedChecker undirectedCheckerAccessible;
     private String[][] tableAccesible = {
             {"Moscow", "Tula", "Tver", "Ryazan"},
             {"Tula", "Anadyr", "Irkutsk", "Omsk"},
             {"Spb", "Irkutsk"}
     };
-    private UnorientedChecker unorientedCheckerUnAccessible;
-    private String[][] tableUnAccesible = {
+    private UndirectedChecker undirectedCheckerUnaccessible;
+    private String[][] tableUnaccesible = {
             {"Moscow", "Tula", "Tver", "Ryazan"},
             {"Tula", "Anadyr", "Irkutsk", "Omsk"},
             {"Spb", "Tosno"},
@@ -29,19 +27,19 @@ public class UnorientedCheckerTest {
     @Before
     public void setUp() throws Exception {
 
-        unorientedCheckerAccessible = new UnorientedChecker(tableAccesible);
-        unorientedCheckerUnAccessible = new UnorientedChecker(tableUnAccesible);
+        undirectedCheckerAccessible = new UndirectedChecker(tableAccesible);
+        undirectedCheckerUnaccessible = new UndirectedChecker(tableUnaccesible);
     }
 
     @After
     public void tearDown() throws Exception {
-        System.out.printf("Accessible:%n%s%n", unorientedCheckerAccessible);
-        System.out.printf("Unaccessible:%n%s%n",unorientedCheckerUnAccessible);
+        System.out.printf("Accessible:%n%s%n", undirectedCheckerAccessible);
+        System.out.printf("Unaccessible:%n%s%n", undirectedCheckerUnaccessible);
     }
 
     @Test
     public void isAccessible() {
-        assertTrue(unorientedCheckerAccessible.isAccessible("Moscow", "Spb"));
-        assertFalse(unorientedCheckerUnAccessible.isAccessible("Moscow", "Spb"));
+        assertTrue(undirectedCheckerAccessible.isAccessible("Moscow", "Spb"));
+        assertFalse(undirectedCheckerUnaccessible.isAccessible("Moscow", "Spb"));
     }
 }
