@@ -3,7 +3,10 @@ package com.github.olegik1719.trello.graph.hdh;
 import com.github.olegik1719.trello.graph.Edge;
 import com.github.olegik1719.trello.graph.Graph;
 
+import java.util.Collection;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Objects;
 
 public class Checker {
 
@@ -46,8 +49,24 @@ public class Checker {
             diffToAccessible = new HashSet<>(toAccessible);
             diffToAccessible.removeAll(prevToAccessible);
             // if intersection of fromSet and toSet isn't empty
-            if (fromAccessible.removeAll(toAccessible)) return true;
+            if (intersectionNotEmpty(fromAccessible,toAccessible)) return true;
         }
         return fromAccessible.contains(to);
     }
+
+    private static <T> boolean intersectionNotEmpty(Collection<T> a, Collection<T> b){
+        Objects.requireNonNull(a);
+        Objects.requireNonNull(b);
+
+        if (a.size() >= b.size()) {
+            for (T e : b)
+                if (a.contains(e)) return true;
+        } else {
+            for (T e : a)
+                if (b.contains(e)) return true;
+        }
+        return false;
+
+    }
+
 }
