@@ -1,4 +1,4 @@
-package com.github.olegik1719.trello;
+package com.github.olegik1719.trello.graph;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -14,9 +14,7 @@ public class DFS {
     }
 
     public DFS addVertex(String vertex){
-        if (graph.get(vertex) == null){
-            graph.put(vertex, new HashSet<>());
-        }
+        graph.computeIfAbsent(vertex, k -> new HashSet<>());
         return this;
     }
 
@@ -31,19 +29,17 @@ public class DFS {
     public boolean isAccessible(String begin, String end){
         if (graph.get(begin) == null || graph.get(end) == null) return false;
         notUsedDFS = new HashMap<>();
-        for (String vertex: graph.keySet()){
+        for (String vertex: graph.keySet())
             notUsedDFS.put(vertex,true);
-        }
         return recoursiveAlgo(begin,end);
     }
 
     private boolean recoursiveAlgo(String begin, String end){
         notUsedDFS.put(begin,false);
-        for (String vertex: graph.get(begin)){
-            if(notUsedDFS.get(vertex)){
-                if ( begin == end ||recoursiveAlgo(vertex,end))return true;
-            }
-        }
+        for (String vertex: graph.get(begin))
+            if(notUsedDFS.get(vertex))
+                if ( begin == end || recoursiveAlgo(vertex,end))
+                    return true;
         return begin.equals(end);
     }
 }
