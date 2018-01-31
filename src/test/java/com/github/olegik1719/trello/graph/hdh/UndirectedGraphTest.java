@@ -9,13 +9,13 @@ import static org.junit.Assert.*;
 public class UndirectedGraphTest {
 
     private UndirectedGraph undirectedGraphAccessible;
-    private String[][] tableAccesible = {
+    private String[][] tableAccessible = {
             {"Moscow", "Tula", "Tver", "Ryazan"},
             {"Tula", "Anadyr", "Irkutsk", "Omsk"},
             {"Spb", "Irkutsk"}
     };
     private UndirectedGraph undirectedGraphUnaccessible;
-    private String[][] tableUnaccesible = {
+    private String[][] tableUnaccessible = {
             {"Moscow", "Tula", "Tver", "Ryazan"},
             {"Tula", "Anadyr", "Irkutsk", "Omsk"},
             {"Spb", "Tosno"},
@@ -27,8 +27,8 @@ public class UndirectedGraphTest {
     @Before
     public void setUp() throws Exception {
 
-        undirectedGraphAccessible = new UndirectedGraph(tableAccesible);
-        undirectedGraphUnaccessible = new UndirectedGraph(tableUnaccesible);
+        undirectedGraphAccessible = new UndirectedGraph(tableAccessible);
+        undirectedGraphUnaccessible = new UndirectedGraph(tableUnaccessible);
     }
 
     @After
