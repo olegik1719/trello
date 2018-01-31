@@ -39,7 +39,7 @@ public class UndirectedGraphTest {
 
     @Test
     public void isAccessible() {
-        assertTrue(Checker.isAccessibleInUndirect(undirectedGraphAccessible,"Moscow", "Spb"));
-        assertFalse(Checker.isAccessibleInUndirect(undirectedGraphUnaccessible,"Moscow", "Spb"));
+        assertTrue(undirectedGraphAccessible.isAccessible("Moscow", "Spb"));
+        assertFalse(undirectedGraphUnaccessible.isAccessible("Moscow", "Spb"));
     }
 }

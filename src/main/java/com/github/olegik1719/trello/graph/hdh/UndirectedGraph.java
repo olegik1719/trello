@@ -13,6 +13,91 @@ public class UndirectedGraph implements Graph<String> {
     private Collection<Edge<String>> edges;
 
 
+    public UndirectedGraph(){
+        vertices = new HashMap<>();
+        edges = new HashSet<>();
+    }
+
+    UndirectedGraph(String[][] table){
+        this();
+        for (String[] aTable : table) {
+            addEdges(aTable);
+        }
+    }
+
+    private boolean addEdge(String begin, String end, Number price, boolean force){
+        StringUndirectedWeightEdge edge = new StringUndirectedWeightEdge(begin,end,price);
+        if (force){
+            addVertex(begin);
+            addVertex(end);
+        } else if(!(isVertex(begin)&&isVertex(end))) return false;
+            vertices.get(begin).add(end);
+            vertices.get(end).add(begin);
+        return edges.add(edge);
+    }
+
+    private void addEdges(String[] table){
+        if (table.length < 1) throw new RuntimeException();
+        else addVertex(table[0]);
+        for (int i = 1; i < table.length; i++) {
+            addEdge(new StringUndirectedWeightEdge(table[0],table[i]),true);
+        }
+    }
+
+    public boolean isAccessible(String begin, String end){
+        return Checker.isAccessibleInUndirect(this, begin, end);
+    }
+
+    @Override
+    public boolean removeEdge(Edge<String> edge) {
+        String begin = edge.getBegin();
+        String end = edge.getEnd();
+        if (!isVertex(begin)||!isVertex(end)||!isEdge(begin,end)) return false;
+        vertices.get(begin).remove(end);
+        vertices.get(end).remove(begin);
+        edges.remove(edge);
+        return true;
+    }
+
+    @Override
+    public boolean removeVertex(String vertex, boolean force) {
+        if (isVertex(vertex)){
+            if (force){
+                for (Edge edge:edges)
+                    if (edge.getBegin() == vertex|| edge.getEnd() == vertex)
+                        removeEdge(edge);
+            }else {
+                for (Edge edge:edges)
+                    if (edge.getBegin() == vertex|| edge.getEnd() == vertex)
+                        return false;
+            }
+            vertices.remove(vertex);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public Graph<String> copy() {
+        UndirectedGraph duplicate = new UndirectedGraph();
+        for (String vertex: vertices.keySet()){
+            duplicate.addVertex(vertex);
+        }
+        for (Edge edge: edges){
+            duplicate.addEdge(edge);
+        }
+        return duplicate;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        for(String vertex: vertices.keySet()){
+            stringBuilder.append(String.format("%s: %s%n",vertex,vertices.get(vertex)));
+        }
+        return stringBuilder.toString();
+        //String.format("Vertices:%n%s: %s%nEdges:%n%s: %s%n",vertices.size(), getVertices(),edges.size(),getEdges());
+    }
 
     private class StringUndirectedWeightEdge implements Edge<String> {
         private static final int DEFAULT_PRICE = 1;
@@ -70,20 +155,9 @@ public class UndirectedGraph implements Graph<String> {
         public boolean isOriented() {
             return false;
         }
-
         @Override
         public String toString(){
             return begin + " <-" + price + "-> " + end;
-        }
-    }
-    private UndirectedGraph(){
-        vertices = new HashMap<>();
-        edges = new HashSet<>();
-    }
-    UndirectedGraph(String[][] table){
-        this();
-        for (String[] aTable : table) {
-            addEdges(aTable);
         }
     }
 
@@ -97,24 +171,14 @@ public class UndirectedGraph implements Graph<String> {
         return addEdge(edge.getBegin(),edge.getEnd(),edge.getPrice(), force);
     }
 
-    private boolean addEdge(String begin, String end, Number price, boolean force){
-        StringUndirectedWeightEdge edge = new StringUndirectedWeightEdge(begin,end,price);
-        if (force){
-            addVertex(begin);
-            addVertex(end);
-        } else if(!(isVertex(begin)&&isVertex(end))) return false;
-            vertices.get(begin).add(end);
-            vertices.get(end).add(begin);
-        return edges.add(edge);
+    @Override
+    public boolean removeEdge(String begin, String end, boolean removeAll) {
+        return removeEdge(new StringUndirectedWeightEdge(begin,end));
     }
 
-    private void addEdges(String[] table){
-        if (table.length < 1) throw new RuntimeException();
-        else addVertex(table[0]);
-        for (int i = 1; i < table.length; i++) {
-            addEdge(new StringUndirectedWeightEdge(table[0],table[i]),true);
-        }
-        //return this;
+    @Override
+    public Collection<String> getNeighbours(String vertex) {
+        return new HashSet<>(vertices.get(vertex));
     }
 
     @Override
@@ -145,67 +209,5 @@ public class UndirectedGraph implements Graph<String> {
     @Override
     public int getEdgesCount() {
         return edges.size();
-    }
-
-    @Override
-    public boolean removeEdge(Edge<String> edge) {
-        String begin = edge.getBegin();
-        String end = edge.getEnd();
-        if (!isVertex(begin)||!isVertex(end)||!isEdge(begin,end)) return false;
-        vertices.get(begin).remove(end);
-        vertices.get(end).remove(begin);
-        edges.remove(edge);
-        return true;
-    }
-
-
-    @Override
-    public boolean removeEdge(String begin, String end, boolean removeAll) {
-        return removeEdge(new StringUndirectedWeightEdge(begin,end));
-    }
-
-    @Override
-    public boolean removeVertex(String vertex, boolean force) {
-        if (isVertex(vertex)){
-            if (force){
-                for (Edge edge:edges)
-                    if (edge.getBegin() == vertex|| edge.getEnd() == vertex)
-                        removeEdge(edge);
-            }else {
-                for (Edge edge:edges)
-                    if (edge.getBegin() == vertex|| edge.getEnd() == vertex)
-                        return false;
-            }
-            vertices.remove(vertex);
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public Graph<String> copy() {
-        UndirectedGraph duplicate = new UndirectedGraph();
-        for (String vertex: vertices.keySet()){
-            duplicate.addVertex(vertex);
-        }
-        for (Edge edge: edges){
-            duplicate.addEdge(edge);
-        }
-        return duplicate;
-    }
-
-    @Override
-    public Collection<String> getNeighbours(String vertex) {
-        return new HashSet<>(vertices.get(vertex));
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder stringBuilder = new StringBuilder();
-        for(String vertex: vertices.keySet()){
-            stringBuilder.append(String.format("%s: %s%n",vertex,vertices.get(vertex)));
-        }
-        return stringBuilder.toString();
-        //String.format("Vertices:%n%s: %s%nEdges:%n%s: %s%n",vertices.size(), getVertices(),edges.size(),getEdges());
     }
 }
