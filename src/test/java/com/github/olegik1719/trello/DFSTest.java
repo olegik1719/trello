@@ -31,6 +31,8 @@ public class DFSTest {
     }
 
     @Test
-    public void recoursiveAlgo() {
+    public void isAccessible() {
+        assertTrue(accessible.isAccessible(cities[0],cities[7]));
+        assertFalse(unaccessible.isAccessible(cities[0],cities[7]));
     }
 }

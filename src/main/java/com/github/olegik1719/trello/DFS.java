@@ -37,7 +37,7 @@ public class DFS {
         return recoursiveAlgo(begin,end);
     }
 
-    public boolean recoursiveAlgo(String begin, String end){
+    private boolean recoursiveAlgo(String begin, String end){
         notUsedDFS.put(begin,false);
         for (String vertex: graph.get(begin)){
             if(notUsedDFS.get(vertex)){
