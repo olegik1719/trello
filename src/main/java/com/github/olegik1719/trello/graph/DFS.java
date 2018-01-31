@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class DFS {
-    private Map<String, Set<String>> graph;
+    private Map<String, Map<String,Set<Number>>> graph;
     private Map<String, Boolean> notUsedDFS;
 
     public DFS(){
@@ -14,15 +14,15 @@ public class DFS {
     }
 
     public DFS addVertex(String vertex){
-        graph.computeIfAbsent(vertex, k -> new HashSet<>());
+        graph.computeIfAbsent(vertex, k -> new HashMap<>());
         return this;
     }
 
-    public DFS addEdge(String begin,String end){
+    public DFS addEdge(String begin,String end,Number price){
         addVertex(begin);
         addVertex(end);
-        graph.get(begin).add(end);
-        graph.get(end).add(begin);
+        graph.get(begin).computeIfAbsent(end,k->new HashSet<>()).add(price);
+        graph.get(end).computeIfAbsent(begin, k->new HashSet<>()).add(price);
         return this;
     }
 
@@ -36,7 +36,7 @@ public class DFS {
 
     private boolean recoursiveAlgo(String begin, String end){
         notUsedDFS.put(begin,false);
-        for (String vertex: graph.get(begin))
+        for (String vertex: graph.get(begin).keySet())
             if(notUsedDFS.get(vertex))
                 if ( begin == end || recoursiveAlgo(vertex,end))
                     return true;
