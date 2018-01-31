@@ -41,7 +41,7 @@ public class DFS {
         notUsedDFS.put(begin,false);
         for (String vertex: graph.get(begin)){
             if(notUsedDFS.get(vertex)){
-                if (recoursiveAlgo(vertex,end))return true;
+                if ( begin == end ||recoursiveAlgo(vertex,end))return true;
             }
         }
         return begin.equals(end);

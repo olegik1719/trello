@@ -22,17 +22,29 @@ public class DFSTest {
             {cities[10], cities[9]}
     };
 
-    private DFS accessible;
-    private DFS unaccessible;
+    private DFS accessible = new DFS();
+    private DFS unaccessible = new DFS();
 
     @Before
     public void setUp() throws Exception {
-
+        addEdges(accessible, 0, 1, 2, 3);
+        addEdges(accessible, 1, 4, 5, 6);
+        addEdges(accessible, 7, 5);
+        addEdges(unaccessible, 0, 1, 2, 3);
+        addEdges(unaccessible, 1, 4, 5, 6);
+        addEdges(unaccessible, 7, 8);
+        addEdges(unaccessible, 8, 9);
+        addEdges(unaccessible, 10, 9);
     }
 
     @Test
     public void isAccessible() {
         assertTrue(accessible.isAccessible(cities[0],cities[7]));
         assertFalse(unaccessible.isAccessible(cities[0],cities[7]));
+    }
+
+    private void addEdges(DFS dfs, int[] data){
+    for (int i=1; i<data.size; i++)
+        dfs.addEdge(cities[data[0]], cities[data[i]])
     }
 }
