@@ -31,9 +31,9 @@ public class FreeList<E> extends ArrayList <E> {
         super(c);
     }
 
-    public FreeList(int beginingSize){
-        super(beginingSize);
-        grow(beginingSize-1) ;// grow
+    public FreeList(int initialSize){
+        super(initialSize);
+        grow(initialSize-1) ;// grow
     }
 
     @Override
