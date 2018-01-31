@@ -10,12 +10,13 @@ public class IntegerGraphTest {
 
     IntegerGraph integerGraph;
 
+    private static int[] data ={23,56,47,54,94};
 
     @Before
     public void setUp() throws Exception {
         integerGraph = new IntegerGraph();
-        int vertex1 = 23;
-        int vertex2 = 56;
+        int vertex1 = data[0];
+        int vertex2 = data[1];
         integerGraph.addVertex(vertex1);
         integerGraph.addVertex(vertex2);
         integerGraph.addEdge(new DefaultEdge<>(vertex1,vertex2,false));
@@ -29,7 +30,7 @@ public class IntegerGraphTest {
     @Test
     public void addVertex(){
         int size = integerGraph.getVerticesCount();
-        integerGraph.addVertex(47);
+        integerGraph.addVertex(data[2]);
         assertEquals(3,integerGraph.getVerticesCount());
     }
 
@@ -58,21 +59,21 @@ public class IntegerGraphTest {
     @Test
     public void removeVertexEdge(){
         showStatus("In beginning");
-        integerGraph.addVertex(47);
-        integerGraph.addEdge(new DefaultEdge<>(54,23));
-        integerGraph.isEdge(23,54);
-        integerGraph.addEdge(new DefaultEdge<>(54,23),true);
-        integerGraph.addEdge(new DefaultEdge<>(47,94,true,10), true);
-        integerGraph.addEdge(new DefaultEdge<>(47,94,false,10), true);
-        integerGraph.addEdge(new DefaultEdge<>(94,47,true,10), true);
+        integerGraph.addVertex(data[2]);
+        integerGraph.addEdge(new DefaultEdge<>(data[3],23));
+        integerGraph.isEdge(data[0],data[3]);
+        integerGraph.addEdge(new DefaultEdge<>(data[3],data[0]),true);
+        integerGraph.addEdge(new DefaultEdge<>(data[2],data[4],true,10), true);
+        integerGraph.addEdge(new DefaultEdge<>(data[2],data[4],false,10), true);
+        integerGraph.addEdge(new DefaultEdge<>(data[4],data[2],true,10), true);
 
 
-        integerGraph.removeEdge(47,94, true);
-        assertFalse(integerGraph.isEdge(47,94));
+        integerGraph.removeEdge(data[2],data[4], true);
+        assertFalse(integerGraph.isEdge(data[2],data[4]));
 
-        integerGraph.removeVertex(23,true);
+        integerGraph.removeVertex(data[0],true);
         for (int vertex:integerGraph.getVertices()){
-            assertFalse(integerGraph.isEdge(23,vertex));
+            assertFalse(integerGraph.isEdge(data[0],vertex));
         }
     }
 }

@@ -82,7 +82,7 @@ public abstract class AbstractGraph<T> implements Graph<T> {
 
     @Override
     public boolean isEdge(T begin, T end) {
-        return      (vertices.get(begin) != null && vertices.get(end) == null)
+        return      (vertices.get(begin) != null && vertices.get(end) != null)
                 &&  (vertices.get(begin).keySet().contains(end) && (vertices.get(begin).get(end).size() > 0));
     }
 
