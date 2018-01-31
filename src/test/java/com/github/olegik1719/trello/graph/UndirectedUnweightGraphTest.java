@@ -76,6 +76,7 @@ public class UndirectedUnweightGraphTest {
                         .addVertex(data[5])
                         .addVertex(data[6])
                         .addVertex(data[7])
-                                    );
+                        .vertices()
+        );
     }
 }
