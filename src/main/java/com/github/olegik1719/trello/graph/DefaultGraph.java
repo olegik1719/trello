@@ -11,7 +11,7 @@ public class DefaultGraph<T> extends AbstractGraph<T>{
     }
 
     @Override
-    public Graph<T> copy(Graph<T> original) {
-        return new DefaultGraph(original);
+    public Graph<T> copy() {
+        return new DefaultGraph(this);
     }
 }

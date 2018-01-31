@@ -102,5 +102,5 @@ public interface Graph<T> {
         return isEdge(edge.getBegin(),edge.getEnd());
     }
 
-    Graph<T> copy(Graph<T> original);
+    Graph<T> copy();
 }
