@@ -70,6 +70,11 @@ public class UndirectedGraph implements Graph<String> {
         public boolean isOriented() {
             return false;
         }
+
+        @Override
+        public String toString(){
+            return begin + " <-" + price + "-> " + end;
+        }
     }
     private UndirectedGraph(){
         vertices = new HashMap<>();

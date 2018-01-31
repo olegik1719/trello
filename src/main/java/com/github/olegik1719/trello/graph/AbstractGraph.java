@@ -15,6 +15,7 @@ public abstract class AbstractGraph<T> implements Graph<T> {
 
     public AbstractGraph(Graph<T> original){
         vertices = new HashMap<>();
+        edges = new HashSet<>();
         for(T vertex: original.getVertices()) addVertex(vertex);
         for (Edge<T> edge: original.getEdges()) addEdge(edge);
     }
