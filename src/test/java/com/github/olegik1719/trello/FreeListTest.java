@@ -8,25 +8,25 @@ import static org.junit.Assert.*;
 public class FreeListTest {
 
     private FreeList<Integer> freeList;
-    private static int beginingSize = 1_000;
+    private final static int initialSize = 1_000;
 
     @Before
     public void setUp() {
-        freeList = new FreeList<>(beginingSize);
+        freeList = new FreeList<>(initialSize);
     }
 
     @Test
     public void get() {
-        assertEquals(beginingSize,freeList.size());
+        assertEquals(initialSize,freeList.size());
         assertNull(freeList.get(999_999));
-        assertEquals(beginingSize,freeList.size());
+        assertEquals(initialSize,freeList.size());
     }
 
     @Test
     public void set() {
         int added = 1_000;
         int position = 999_999;
-        assertNull(freeList.set(position, added));
+        freeList.set(position, added);
         assertEquals(added, freeList.get(position).intValue());
         assertEquals(position + 1,freeList.size());
     }

@@ -8,15 +8,15 @@ public class FreeList<E> extends ArrayList <E> {
 
     private boolean rangeCheck(int index){
         if (index < 0) throw new IndexOutOfBoundsException("Index must be positive!");
-        if (index > super.size()) return true;
-        return false;
+        if (index > size()) return false;
+        return true;
     }
 
     private FreeList grow(int toIndex){
         if (toIndex < 0) throw new IndexOutOfBoundsException("Index must be positive!");
-        if (toIndex >= super.size()){
+        if (toIndex >= size()){
             super.ensureCapacity(toIndex+1);
-            for (int i = super.size(); i < toIndex + 1; i++) {
+            for (int i = size(); i < toIndex + 1; i++) {
                 super.add(null);
             }
         }
@@ -38,7 +38,7 @@ public class FreeList<E> extends ArrayList <E> {
 
     @Override
     public E get(int index) {
-        if (rangeCheck(index)) return null;
+        if (!rangeCheck(index)) return null;
         return super.get(index);
     }
 
@@ -58,7 +58,7 @@ public class FreeList<E> extends ArrayList <E> {
     public E remove(int index) {
         // Small optimization:
         // if we remove something after end -- We don't need in growing!!!
-        if (rangeCheck(index)) return null;
+        if (!rangeCheck(index)) return null;
         return super.remove(index);
     }
 
