@@ -1,32 +1,40 @@
 package com.github.olegik1719.trello.graph;
 
-import java.util.Map;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Stack;
-import java.util.Collection;
+import java.util.*;
 
 
-public class DFS {
+public class UndirectedWeightStringGraph {
     private Map<String, Map<String,Collection<Number>>> graph;
+    private final static int DEFAULT_PRICE = 1;
 
-    public DFS(){
+    public UndirectedWeightStringGraph(){
         graph = new HashMap<>();
     }
 
-    public DFS addVertex(String vertex){
+    public UndirectedWeightStringGraph addVertex(String vertex){
         graph.computeIfAbsent(vertex, k -> new HashMap<>());
         return this;
     }
 
-    public DFS addEdge(String begin,String end,Number price){
+    public UndirectedWeightStringGraph addEdge(String begin, String end, Number price){
         addVertex(begin);
         addVertex(end);
         graph.computeIfAbsent(begin,k->new HashMap<>())
                 .computeIfAbsent(end,k->new HashSet<>()).add(price);
-        //graph.get(begin).computeIfAbsent(end,k->new HashSet<>()).add(price);
         graph.computeIfAbsent(end,k->new HashMap<>())
                 .computeIfAbsent(begin,k->new HashSet<>()).add(price);
+        return this;
+    }
+
+    /**
+     * Add edges(DEFAULT_PRICE) to graph in batch mode: from vertex to all neighbours
+     * @param vertex -- main vertex-target
+     * @param neighbours -- list of vertex's neighbors
+     * @return this graph
+     */
+    public UndirectedWeightStringGraph addNeighbours(String vertex, String... neighbours){
+        Arrays.asList(neighbours)
+                .forEach(integer -> addEdge(vertex,integer, DEFAULT_PRICE));
         return this;
     }
 

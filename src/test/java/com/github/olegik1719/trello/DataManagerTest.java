@@ -18,8 +18,8 @@ public class DataManagerTest {
         try(Connection conn = h2.getConnection();
             Statement statement = conn.createStatement()
         ){
-            statement.execute("CREATE TABLE Persons (PersonID int,LastName varchar(255),FirstName varchar(255),"
-                    + " Address varchar(255), City varchar(255))");
+            statement.execute("CREATE TABLE Persons (personID int,lastName varchar(255),firstName varchar(255),"
+                    + " address varchar(255), city varchar(255))");
             statement.execute("INSERT INTO Persons VALUES(1, 'HELLO', 'HELLO','HELLO','HELLO')");
             statement.execute("INSERT INTO Persons VALUES(2, 'JOHN','JOHN','JOHN','JOHN')");
             try (ResultSet resultSet = statement.executeQuery("SELECT * FROM Persons")
