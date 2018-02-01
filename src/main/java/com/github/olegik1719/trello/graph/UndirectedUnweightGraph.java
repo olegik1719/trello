@@ -30,12 +30,17 @@ public class UndirectedUnweightGraph {
         return isVertex(begin) && isVertex(end) && vertices.get(begin).contains(end);
     }
 
-    public int countVertex(){
+    public int countVertices(){
         return vertices.size();
     }
 
     public int countEdges(){
-        return vertices.keySet().stream().mapToInt(integer -> vertices.get(integer).size()).sum() / 2;
+        //return vertices.keySet().stream().mapToInt(integer -> vertices.get(integer).size()).sum() / 2;
+        int sum = 0;
+        for(Integer vertex: vertices.keySet()){
+            sum+=vertices.get(vertex).size();
+        }
+        return  sum / 2;
     }
 
     public List<Integer> vertices(){

@@ -19,7 +19,7 @@ public class UndirectedUnweightGraphTest {
     public void addVertex() {
         graph.addVertex(data[0])
                 .addVertex(data[1]);
-        assertEquals(2,graph.countVertex());
+        assertEquals(2,graph.countVertices());
     }
 
     @Test
@@ -47,12 +47,12 @@ public class UndirectedUnweightGraphTest {
     }
 
     @Test
-    public void countVertex() {
+    public void countVertices() {
         assertEquals(6,graph.
                 addEdge(data[0],data[1])
                 .addEdge(data[2],data[3])
                 .addEdge(data[4],data[5])
-                .countVertex()
+                .countVertices()
         );
     }
 
