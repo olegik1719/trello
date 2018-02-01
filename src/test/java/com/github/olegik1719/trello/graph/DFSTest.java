@@ -40,8 +40,10 @@ public class DFSTest {
 
     @Test
     public void isAccessible() {
-        assertTrue(accessible.isAccessible(cities[0],cities[7]));
-        assertFalse(unaccessible.isAccessible(cities[0],cities[7]));
+        assertTrue(accessible.isAccessible(cities[0],cities[7],true));
+        assertTrue(accessible.isAccessible(cities[0],cities[7],false));
+        assertFalse(unaccessible.isAccessible(cities[0],cities[7],true));
+        assertFalse(unaccessible.isAccessible(cities[0],cities[7],false));
     }
 
     private void addEdges(DFS dfs, int... data){
