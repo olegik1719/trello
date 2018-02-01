@@ -3,6 +3,8 @@ package com.github.olegik1719.trello.graph;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Arrays;
+
 import static org.junit.Assert.*;
 
 public class DFSTest {
@@ -46,8 +48,8 @@ public class DFSTest {
         assertFalse(unaccessible.isAccessible(cities[0],cities[7],false));
     }
 
-    private void addEdges(DFS dfs, int... data){
-        for (int i=1; i<data.length; i++)
-            dfs.addEdge(cities[data[0]], cities[data[i]],price);
+    private void addEdges(DFS dfs, Integer vertex, Integer... neighbours){
+        Arrays.asList(neighbours)
+                .forEach(integer -> dfs.addEdge(cities[vertex],cities[integer],price));
     }
 }
