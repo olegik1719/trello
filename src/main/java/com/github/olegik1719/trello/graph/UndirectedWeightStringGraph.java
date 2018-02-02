@@ -17,8 +17,6 @@ public class UndirectedWeightStringGraph {
     }
 
     public UndirectedWeightStringGraph addEdge(String begin, String end, Number price){
-        addVertex(begin);
-        addVertex(end);
         graph.computeIfAbsent(begin,k->new HashMap<>())
                 .computeIfAbsent(end,k->new HashSet<>()).add(price);
         graph.computeIfAbsent(end,k->new HashMap<>())
