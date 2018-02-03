@@ -1,5 +1,6 @@
-package com.github.olegik1719.trello;
+package com.github.olegik1719.trello.collections;
 
+import com.github.olegik1719.trello.collections.FreeList;
 import org.junit.Before;
 import org.junit.Test;
 

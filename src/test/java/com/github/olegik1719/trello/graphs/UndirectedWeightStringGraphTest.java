@@ -1,4 +1,4 @@
-package com.github.olegik1719.trello.graph;
+package com.github.olegik1719.trello.graphs;
 
 import org.junit.Before;
 import org.junit.Test;
