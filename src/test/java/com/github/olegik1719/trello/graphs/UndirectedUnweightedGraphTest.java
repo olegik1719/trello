@@ -1,18 +1,18 @@
-package com.github.olegik1719.trello.graph;
+package com.github.olegik1719.trello.graphs;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class UndirectedUnweightGraphTest {
-    private  static UndirectedUnweightGraph graph;
+public class UndirectedUnweightedGraphTest {
+    private  static UndirectedUnweightedGraph graph;
 
     private final static int[] data = {1,2,3,4,5,6,7,8,9,10,11};
 
     @Before
     public void setUp() throws Exception {
-        graph = new UndirectedUnweightGraph();
+        graph = new UndirectedUnweightedGraph();
     }
 
     @Test

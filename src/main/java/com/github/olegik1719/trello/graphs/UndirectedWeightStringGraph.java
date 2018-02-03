@@ -1,11 +1,11 @@
-package com.github.olegik1719.trello.graph;
+package com.github.olegik1719.trello.graphs;
 
 import java.util.*;
 
 
 public class UndirectedWeightStringGraph {
     private Map<String, Map<String,Collection<Number>>> graph;
-    private final static int DEFAULT_PRICE = 1;
+    private final static int DEFAULT_WEIGHT = 1;
 
     public UndirectedWeightStringGraph(){
         graph = new HashMap<>();
@@ -32,7 +32,7 @@ public class UndirectedWeightStringGraph {
      */
     public UndirectedWeightStringGraph addNeighbours(String vertex, String... neighbours){
         Arrays.asList(neighbours)
-                .forEach(integer -> addEdge(vertex,integer, DEFAULT_PRICE));
+                .forEach(integer -> addEdge(vertex,integer, DEFAULT_WEIGHT));
         return this;
     }
 
@@ -60,10 +60,10 @@ public class UndirectedWeightStringGraph {
     }
 
     private boolean loopDFS(String begin, String end, Map<String,Boolean> notUsed){
-        Stack<String> forCheck = new Stack<>();
+        ArrayDeque<String> forCheck = new ArrayDeque<>();
         String current = begin;
         forCheck.push(current);
-        while (!(forCheck.empty())){
+        while (!(forCheck.isEmpty())){
             current = forCheck.pop();
             if (current.equals(end)) return true;
             if (notUsed.put(current, false))
