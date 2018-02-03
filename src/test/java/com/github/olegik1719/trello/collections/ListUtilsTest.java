@@ -1,13 +1,12 @@
-package com.github.olegik1719.trello;
+package com.github.olegik1719.trello.collections;
 
+import com.github.olegik1719.trello.collections.ListUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 public class ListUtilsTest {
 

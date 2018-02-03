@@ -1,22 +1,22 @@
-package com.github.olegik1719.trello.graph;
+package com.github.olegik1719.trello.graphs;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
-public class UndirectedUnweightGraph {
+public class UndirectedUnweightedGraph {
     private HashMap<Integer, HashSet<Integer>> vertices;
-    public UndirectedUnweightGraph(){
+    public UndirectedUnweightedGraph(){
         vertices = new HashMap<>();
     }
 
-    public UndirectedUnweightGraph addVertex(Integer vertex){
+    public UndirectedUnweightedGraph addVertex(Integer vertex){
         vertices.computeIfAbsent(vertex,k -> new HashSet<>());
         return this;
     }
 
-    public UndirectedUnweightGraph addEdge(Integer begin, Integer end){
+    public UndirectedUnweightedGraph addEdge(Integer begin, Integer end){
         vertices.computeIfAbsent(begin, k->new HashSet<>()).add(end);
         vertices.computeIfAbsent(end, k->new HashSet<>()).add(begin);
         return this;

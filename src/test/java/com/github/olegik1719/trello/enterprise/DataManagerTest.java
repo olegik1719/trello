@@ -1,6 +1,6 @@
-package com.github.olegik1719.trello;
+package com.github.olegik1719.trello.enterprise;
 
-import com.github.olegik1719.trello.DataManager;
+import com.github.olegik1719.trello.enterprise.DataManager;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.junit.Test;
 
