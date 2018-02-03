@@ -1,4 +1,4 @@
-package com.github.olegik1719.trello;
+package com.github.olegik1719.trello.collections;
 
 import com.github.olegik1719.trello.collections.ListUtils;
 import org.junit.After;
