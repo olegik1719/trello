@@ -1,6 +1,6 @@
 package com.github.olegik1719.trello;
 
-import com.github.olegik1719.trello.SortingArray;
+import com.github.olegik1719.trello.collections.SortingArray;
 import org.junit.Test;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.github.olegik1719.trello;
+package com.github.olegik1719.trello.strings;
 
 public class Strings {
     
