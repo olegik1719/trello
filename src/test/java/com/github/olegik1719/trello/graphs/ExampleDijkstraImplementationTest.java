@@ -7,8 +7,8 @@ import static org.junit.Assert.*;
 
 public class ExampleDijkstraImplementationTest {
 
-    private ExampleDijkstraImplementation accessible = new ExampleDijkstraImplementation();
-    private ExampleDijkstraImplementation unaccessible = new ExampleDijkstraImplementation();
+    private ExampleDijkstraImplementation<String> accessible = new ExampleDijkstraImplementation<>();
+    private ExampleDijkstraImplementation<String> unaccessible = new ExampleDijkstraImplementation<>();
 
     private static final String[] cities = {"Moscow", "Tula", "Tver", "Ryazan", "Anadyr", "Irkutsk", "Omsk", "Spb", "Tosno", "Novgorod", "Kolpino"};
 

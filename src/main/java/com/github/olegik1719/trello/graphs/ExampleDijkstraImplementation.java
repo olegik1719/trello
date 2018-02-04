@@ -4,39 +4,39 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 
-public class ExampleDijkstraImplementation implements Dijkstra<String> {
+public class ExampleDijkstraImplementation<T> implements Dijkstra<T> {
 
-    private HashMap<String, HashSet<String>> vertices;
+    private HashMap<T, HashSet<T>> vertices;
 
     public ExampleDijkstraImplementation(){
         vertices = new HashMap<>();
     }
 
     @Override
-    public Graph<String> addVertex(String vertex) {
+    public Graph<T> addVertex(T vertex) {
         vertices.computeIfAbsent(vertex,s->new HashSet<>());
         return this;
     }
 
     @Override
-    public Graph<String> addEdge(String begin, String end) {
+    public Graph<T> addEdge(T begin, T end) {
         vertices.computeIfAbsent(begin,s->new HashSet<>()).add(end);
         vertices.computeIfAbsent(end, s-> new HashSet<>()).add(begin);
         return this;
     }
 
     @Override
-    public Collection<String> vertices() {
+    public Collection<T> vertices() {
         return new HashSet<>(vertices.keySet());
     }
 
     @Override
-    public Collection<String> getNeighbours(String vertex){
+    public Collection<T> getNeighbours(T vertex){
         return new HashSet<>(vertices.get(vertex));
     }
 
     @Override
-    public boolean isEdge(String begin, String end) {
+    public boolean isEdge(T begin, T end) {
         return vertices.containsKey(begin)
                 && vertices.containsKey(end)
                 && vertices.get(begin).contains(end);

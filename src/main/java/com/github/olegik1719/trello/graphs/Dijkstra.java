@@ -10,6 +10,7 @@ public interface Dijkstra<T> extends Graph<T> {
     default int getWeight(T begin, T end){
         return 1;
     }
+
     default Map<T, Integer> getDijkstra(T begin){
         Map<T, Integer> distances = new HashMap<>();
         vertices().forEach(vertex -> distances.computeIfAbsent(vertex,s -> Integer.MAX_VALUE));
