@@ -20,11 +20,8 @@ public interface Graph<T>{
     default boolean isVertex(T vertex){
         return vertices().contains(vertex);
     }
-    default boolean isEdge(T begin, T end){
-        return isVertex(begin)
-                && isVertex(end)
-                && getNeighbours(begin).contains(end);
-    }
+
+    boolean isEdge(T begin, T end);
 
     default int countVertices(){
         return vertices().size();
