@@ -2,23 +2,40 @@ package com.github.olegik1719.trello.graphs;
 
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 
 public interface Graph<T>{
 
     Graph<T> addVertex(T vertex);
     Graph<T> addEdge(T begin, T end);
-
-    boolean isVertex(T vertex);
-    boolean isEdge(T begin, T end);
-
-    int countVertices();
-    int countEdges();
-
     Collection<T> vertices();
 
-    default Number getWeight(T begin, T end){
-        return Double.NaN;
+
+    default Graph<T> addNeighbours(T vertex, T...neighbours){
+        for (T neighbour:neighbours){
+            addEdge(vertex,neighbour);
+        }
+        return this;
+    }
+
+    default boolean isVertex(T vertex){
+        return vertices().contains(vertex);
+    }
+    default boolean isEdge(T begin, T end){
+        return isVertex(begin)
+                && isVertex(end)
+                && getNeighbours(begin).contains(end);
+    }
+
+    default int countVertices(){
+        return vertices().size();
+    }
+
+    default int countEdges(){
+        int sum = 0;
+        for (T vertex:vertices()){
+            sum += getNeighbours(vertex).size();
+        }
+        return sum / 2;
     }
 
     default  Collection<T> getNeighbours(T vertex){
