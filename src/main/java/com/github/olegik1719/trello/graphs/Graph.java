@@ -17,7 +17,7 @@ public interface Graph<T>{
 
     Collection<T> vertices();
 
-    default Number getWeight(){
+    default Number getWeight(T begin, T end){
         return Double.NaN;
     }
 
