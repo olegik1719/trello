@@ -1,6 +1,7 @@
 package com.github.olegik1719.trello.strings;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Strings {
@@ -12,14 +13,6 @@ public class Strings {
         return result;
     }
 
-    public static List<Integer> substring(String string, String substing){
-        List<Integer> result = new ArrayList<>(string.length());
-        int fromIndex = 0;
-        while ((fromIndex = string.indexOf(substing,fromIndex)) != -1){
-            result.add(fromIndex++);
-        }
-        return result;
-    }
 
     public static boolean isPalindrome(String string){
         for (int i = 0; i < string.length()/2; i++) {
@@ -28,4 +21,28 @@ public class Strings {
         }
         return true;
     }
+
+    public static List<Integer> substring(String string, String substring){
+        List<Integer> result = new ArrayList<>(string.length()+1);
+
+        //s.indexOf("",s.length()) = s.length!!!!!!!!!!!!!!!!!!!
+        if (substring.length() == 0){
+            for (int i = 0; i <= string.length(); i++)
+                result.add(i);
+            return result;
+        }
+
+        for (int i = 0; i<=string.length() - substring.length(); i++){
+            int j = 0;
+            while (j<substring.length()
+                    && i+j<string.length()
+                    && string.charAt(i+j)==string.charAt(j)){
+                j++;
+            }
+            if (j == substring.length())
+                result.add(i);
+        }
+        return result;
+    }
+
 }

@@ -24,6 +24,8 @@ public class StringsTest {
 
     @Test
     public void substring() {
-        System.out.printf("%s,%n",Strings.substring("asasdas","as"));
+        System.out.printf("%s%n",Strings.substring("asasdasa","as"));
+        System.out.printf("%s%n",Strings.substring("asasdasa",""));
+        System.out.printf("%s%n","".indexOf("",0));
     }
 }
