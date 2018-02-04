@@ -5,12 +5,13 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
-public class UndirectedUnweightedGraph {
+public class UndirectedUnweightedGraph implements Graph<Integer>{
     private HashMap<Integer, HashSet<Integer>> vertices;
     public UndirectedUnweightedGraph(){
         vertices = new HashMap<>();
     }
 
+    @Override
     public UndirectedUnweightedGraph addVertex(Integer vertex){
         vertices.computeIfAbsent(vertex,k -> new HashSet<>());
         return this;
