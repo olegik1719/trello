@@ -31,8 +31,8 @@ public class ExampleDijkstraImplementationTest {
 
     @Test
     public void getDijkstra(){
-        System.out.printf("%s%n", accessible.getDijkstra(cities[0]));
-        System.out.printf("%s%n", unaccessible.getDijkstra(cities[0]));
+        System.out.printf("%s%n", accessible.getDistanceMap(cities[0]));
+        System.out.printf("%s%n", unaccessible.getDistanceMap(cities[0]));
     }
 
 }

@@ -11,7 +11,7 @@ public interface Dijkstra<T> extends Graph<T> {
         return 1;
     }
 
-    default Map<T, Integer> getDijkstra(T begin){
+    default Map<T, Integer> getDistanceMap(T begin){
         Map<T, Integer> distances = new HashMap<>();
         vertices().forEach(vertex -> distances.computeIfAbsent(vertex,s -> Integer.MAX_VALUE));
         if (!isVertex(begin)) {
