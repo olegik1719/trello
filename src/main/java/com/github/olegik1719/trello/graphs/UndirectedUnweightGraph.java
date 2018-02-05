@@ -4,27 +4,29 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 
-public class DirectedUnweightedGraph<T> implements Graph<T> {
+public class UndirectedUnweightGraph<T> implements Graph<T> {
+
     private HashMap<T, HashSet<T>> vertices;
 
-    public DirectedUnweightedGraph(){
+    public UndirectedUnweightGraph(){
         vertices = new HashMap<>();
     }
 
-    public DirectedUnweightedGraph(Graph<T> otherGraph){
+    public UndirectedUnweightGraph(Graph<T> otherGraph){
         this();
         otherGraph.vertices().forEach(vertex -> vertices.put(vertex,new HashSet<>(otherGraph.getNeighbours(vertex))));
     }
 
     @Override
-    public DirectedUnweightedGraph<T> addVertex(T vertex) {
+    public UndirectedUnweightGraph<T> addVertex(T vertex) {
         vertices.computeIfAbsent(vertex,k -> new HashSet<>());
         return this;
     }
 
     @Override
-    public DirectedUnweightedGraph<T> addEdge(T begin, T end) {
+    public UndirectedUnweightGraph<T> addEdge(T begin, T end) {
         vertices.computeIfAbsent(begin, k->new HashSet<>()).add(end);
+        vertices.computeIfAbsent(end, k->new HashSet<>()).add(begin);
         return this;
     }
 
