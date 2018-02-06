@@ -2,6 +2,9 @@ package com.github.olegik1719.trello.strings;
 
 import org.junit.Test;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -24,8 +27,16 @@ public class StringsTest {
 
     @Test
     public void substring() {
-        System.out.printf("%s%n",Strings.substring("asasdasa","as"));
-        System.out.printf("%s%n",Strings.substring("asasdasa",""));
-        System.out.printf("%s%n","".indexOf("",0));
+        String string = "asasdasa";
+        String substring = "as";
+        List<Integer> actual = Strings.substring(string, substring);
+        List<Integer> expected = Arrays.asList(0,2,5);
+        assertEquals(expected,actual);
+        assertEquals(string.length()+1,Strings.substring(string,"").size());
+        string = "aaaaaaa";
+        substring = "a";
+        actual = Strings.substring(string,substring);
+        expected = Arrays.asList(0,1,2,3,4,5,6);
+        assertEquals(expected,actual);
     }
 }

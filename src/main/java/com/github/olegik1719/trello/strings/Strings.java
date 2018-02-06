@@ -1,7 +1,6 @@
 package com.github.olegik1719.trello.strings;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Strings {
@@ -25,7 +24,6 @@ public class Strings {
     public static List<Integer> substring(String string, String substring){
         List<Integer> result = new ArrayList<>(string.length()+1);
 
-        //s.indexOf("",s.length()) = s.length!!!!!!!!!!!!!!!!!!!
         if (substring.length() == 0){
             for (int i = 0; i <= string.length(); i++)
                 result.add(i);
