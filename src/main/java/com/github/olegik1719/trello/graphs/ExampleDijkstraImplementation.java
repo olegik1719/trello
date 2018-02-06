@@ -36,7 +36,7 @@ public class ExampleDijkstraImplementation<T> implements Dijkstra<T> {
     }
 
     @Override
-    public boolean isEdge(T begin, T end) {
+    public boolean containsEdge(T begin, T end) {
         return vertices.containsKey(begin)
                 && vertices.containsKey(end)
                 && vertices.get(begin).contains(end);

@@ -17,11 +17,11 @@ public interface Graph<T>{
         return this;
     }
 
-    default boolean isVertex(T vertex){
+    default boolean containsVertex(T vertex){
         return vertices().contains(vertex);
     }
 
-    boolean isEdge(T begin, T end);
+    boolean containsEdge(T begin, T end);
 
     default int countVertices(){
         return vertices().size();
@@ -38,7 +38,7 @@ public interface Graph<T>{
     default  Collection<T> getNeighbours(T vertex){
         Collection<T> result = new HashSet<>(vertices());
         //vertices().forEach(neighbour -> {if (isEdge(vertex,neighbour))result.add(neighbour);});
-        result.removeIf(neighbour -> !isEdge(vertex,neighbour));
+        result.removeIf(neighbour -> !containsEdge(vertex,neighbour));
         return result;
     }
 }

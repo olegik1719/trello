@@ -23,12 +23,12 @@ public class UndirectedUnweightedGraph implements Graph<Integer>{
         return this;
     }
 
-    public boolean isVertex(Integer vertex){
+    public boolean containsVertex(Integer vertex){
         return vertices.containsKey(vertex);
     }
 
-    public boolean isEdge(Integer begin, Integer end){
-        return isVertex(begin) && isVertex(end) && vertices.get(begin).contains(end);
+    public boolean containsEdge(Integer begin, Integer end){
+        return containsVertex(begin) && containsVertex(end) && vertices.get(begin).contains(end);
     }
 
     public int countVertices(){

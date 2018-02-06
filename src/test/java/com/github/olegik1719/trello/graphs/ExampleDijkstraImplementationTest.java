@@ -33,6 +33,8 @@ public class ExampleDijkstraImplementationTest {
     public void getDijkstra(){
         System.out.printf("%s%n", accessible.getDistanceMap(cities[0]));
         System.out.printf("%s%n", unaccessible.getDistanceMap(cities[0]));
+        assertEquals(3,accessible.getDistance(cities[0],cities[7]).intValue());
+        assertEquals(Integer.MAX_VALUE, unaccessible.getDistance(cities[0], cities[7]).intValue());
     }
 
 }
