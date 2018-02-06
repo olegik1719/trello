@@ -34,13 +34,13 @@ public class DirectedUnweightedGraph<T> implements Graph<T> {
     }
 
     @Override
-    public boolean isVertex(T vertex) {
+    public boolean containsVertex(T vertex) {
         return vertices.containsKey(vertex);
     }
 
     @Override
-    public boolean isEdge(T begin, T end) {
-        return isVertex(begin) && isVertex(end) && vertices.get(begin).contains(end);
+    public boolean containsEdge(T begin, T end) {
+        return containsVertex(begin) && containsVertex(end) && vertices.get(begin).contains(end);
     }
 
     @Override
