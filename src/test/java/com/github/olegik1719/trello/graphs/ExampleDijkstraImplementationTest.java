@@ -17,7 +17,9 @@ public class ExampleDijkstraImplementationTest {
         accessible
                 .addNeighbours(cities[0], cities[1], cities[2], cities[3])
                 .addNeighbours(cities[1], cities[4], cities[5], cities[6])
-                .addNeighbours(cities[7], cities[5])
+                .addNeighbours(cities[7], cities[5], cities[8])
+                .addNeighbours(cities[8], cities[9])
+                .addNeighbours(cities[10], cities[9])
         ;
         unaccessible
                 .addNeighbours(cities[0], cities[1], cities[2], cities[3])

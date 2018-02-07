@@ -7,10 +7,6 @@ import java.util.Map;
 
 public interface Dijkstra<T> extends Graph<T> {
 
-    default Integer getWeight(T begin, T end){
-        return 1;
-    }
-
     default Map<T, Integer> getDistanceMap(T begin){
         Map<T, Integer> distances = new HashMap<>();
         vertices().forEach(vertex -> distances.computeIfAbsent(vertex,s -> Integer.MAX_VALUE));
@@ -27,12 +23,9 @@ public interface Dijkstra<T> extends Graph<T> {
             Integer currentDist = distances.get(current);
             if (notUsed.get(current)) {
                 getNeighbours(current).forEach(neighbour -> {
-                    Integer getWeight = getWeight(current, neighbour);
-                    if ( getWeight < 0)
-                        throw new IllegalArgumentException("Graph cannot be with negative weight");
-                    else if (notUsed.get(neighbour)) {
-                         if (currentDist + getWeight <distances.get(neighbour))
-                             distances.put(neighbour, currentDist + getWeight);
+                    if (notUsed.get(neighbour)) {
+                         if (currentDist + 1 <distances.get(neighbour))
+                             distances.put(neighbour, currentDist + 1);
                         inWork.add(neighbour);
                     }
                 });
@@ -60,12 +53,9 @@ public interface Dijkstra<T> extends Graph<T> {
             if (current.equals(end)) return distances.get(end);
             if (notUsed.get(current)) {
                 getNeighbours(current).forEach(neighbour -> {
-                    Integer getWeight = getWeight(current, neighbour);
-                    if ( getWeight < 0)
-                        throw new IllegalArgumentException("Graph cannot be with negative weight");
-                    else if (notUsed.get(neighbour)) {
-                        if (currentDist + getWeight <distances.get(neighbour))
-                            distances.put(neighbour, currentDist + getWeight);
+                    if (notUsed.get(neighbour)) {
+                        if (currentDist + 1 <distances.get(neighbour))
+                            distances.put(neighbour, currentDist + 1);
                         inWork.add(neighbour);
                     }
                 });
