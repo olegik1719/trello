@@ -26,15 +26,15 @@ public class UndirectedUnweightedGraphTest {
     public void addEdge() {
         graph.addVertex(data[3])
                 .addEdge(data[3],data[4]);
-        assertTrue(graph.isEdge(data[3],data[4]));
-        assertTrue(graph.isVertex(data[4]));
+        assertTrue(graph.containsEdge(data[3],data[4]));
+        assertTrue(graph.containsVertex(data[4]));
     }
 
     @Test
     public void isVertex() {
         graph.addVertex(data[5])
                 .addVertex(data[6]);
-        assertTrue(graph.isVertex(data[5]));
+        assertTrue(graph.containsVertex(data[5]));
     }
 
     @Test
@@ -43,7 +43,7 @@ public class UndirectedUnweightedGraphTest {
                 .addVertex(data[7])
                 .addVertex(data[8])
                 .addEdge(data[7],data[8])
-                .isEdge(data[7],data[8]));
+                .containsEdge(data[7],data[8]));
     }
 
     @Test
