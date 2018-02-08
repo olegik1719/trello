@@ -5,10 +5,10 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class ExampleDijkstraImplementationTest {
+public class DijkstraSampleTest {
 
-    private ExampleDijkstraImplementation<String> accessible = new ExampleDijkstraImplementation<>();
-    private ExampleDijkstraImplementation<String> unaccessible = new ExampleDijkstraImplementation<>();
+    private DijkstraSample<String> accessible = new DijkstraSample<>();
+    private DijkstraSample<String> unaccessible = new DijkstraSample<>();
 
     private static final String[] cities = {"Moscow", "Tula", "Tver", "Ryazan", "Anadyr", "Irkutsk", "Omsk", "Spb", "Tosno", "Novgorod", "Kolpino"};
 

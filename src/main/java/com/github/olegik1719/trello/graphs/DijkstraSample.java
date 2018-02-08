@@ -4,11 +4,11 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 
-public class ExampleDijkstraImplementation<T> implements Dijkstra<T> {
+public class DijkstraSample<T> implements Dijkstra<T> {
 
     private HashMap<T, HashSet<T>> vertices;
 
-    public ExampleDijkstraImplementation(){
+    public DijkstraSample(){
         vertices = new HashMap<>();
     }
 
