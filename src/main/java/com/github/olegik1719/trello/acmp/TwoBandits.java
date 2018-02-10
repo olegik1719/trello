@@ -1,5 +1,8 @@
 package com.github.olegik1719.trello.acmp;
 
+import java.io.PrintWriter;
+import java.util.Scanner;
+
 /**
  * https://acmp.ru/index.asp?main=task&id_task=33
  *  Бандиты Гарри и Ларри отдыхали на природе. Решив пострелять, они выставили на бревно несколько банок из-под кока-колы (не больше 10).
@@ -12,7 +15,16 @@ package com.github.olegik1719.trello.acmp;
  */
 
 public class TwoBandits {
-    public static int[] nonShooted(int shutedByGarry, int shutedByLarry){
-        return new int[]{ shutedByLarry - 1, shutedByGarry - 1 };
+//    public static int[] nonShooted(int shutedByGarry, int shutedByLarry){
+//        return new int[]{ shutedByLarry - 1, shutedByGarry - 1 };
+//    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        PrintWriter printWriter = new PrintWriter(System.out);
+        int shootedGarry = scanner.nextInt();
+        int shootedLarry = scanner.nextInt();
+        printWriter.printf("%s %s%n", shootedLarry - 1, shootedGarry - 1);
+        printWriter.flush();
     }
 }
