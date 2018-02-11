@@ -15,10 +15,6 @@ import java.util.Scanner;
  */
 
 public class ACMP033 {
-//    public static int[] nonShooted(int shutedByGarry, int shutedByLarry){
-//        return new int[]{ shutedByLarry - 1, shutedByGarry - 1 };
-//    }
-
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         PrintWriter printWriter = new PrintWriter(System.out);
