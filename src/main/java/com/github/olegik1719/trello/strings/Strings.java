@@ -31,6 +31,14 @@ public class Strings {
         return true;
     }
 
+
+    /**
+     * Search all places for substring in string
+     * Complexity is O(string.length() + substring.length())
+     * @param string for detection
+     * @param substring for search
+     * @return list of numbers.
+     */
     public static List<Integer> substring(String string, String substring){
         List<Integer> result = new ArrayList<>(string.length()+1);
 
