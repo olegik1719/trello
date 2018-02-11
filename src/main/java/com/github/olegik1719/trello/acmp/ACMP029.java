@@ -24,7 +24,7 @@ import static java.lang.Math.min;
  * (конечно же в предположении, что cheat-коды использовать нельзя).
  */
 
-public class ComputerGame {
+public class ACMP029 {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         PrintWriter printWriter = new PrintWriter(System.out);
