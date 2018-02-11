@@ -3,7 +3,8 @@ package com.github.olegik1719.trello.acmp;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
-/** https://acmp.ru/index.asp?main=task&id_task=5
+/**
+ *  https://acmp.ru/index.asp?main=task&id_task=5
  *  Вася не любит английский язык, но каждый раз старается получить хотя бы четверку за четверть,
  *  чтобы оставаться ударником. В текущей четверти Вася заметил следующую закономерность:
  *  по нечетным дням месяца он получал тройки, а по четным – четверки.
