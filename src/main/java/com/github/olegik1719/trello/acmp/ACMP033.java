@@ -14,7 +14,7 @@ import java.util.Scanner;
  *  Каждый из них помнили только, сколько банок прострелил он сам. Определите по этим данным, сколько банок не прострелил Гарри и сколько банок не прострелил Ларри.
  */
 
-public class TwoBandits {
+public class ACMP033 {
 //    public static int[] nonShooted(int shutedByGarry, int shutedByLarry){
 //        return new int[]{ shutedByLarry - 1, shutedByGarry - 1 };
 //    }
@@ -22,9 +22,9 @@ public class TwoBandits {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         PrintWriter printWriter = new PrintWriter(System.out);
-        int shootedGarry = scanner.nextInt();
-        int shootedLarry = scanner.nextInt();
-        printWriter.printf("%s %s%n", shootedLarry - 1, shootedGarry - 1);
+        int shotGarry = scanner.nextInt();
+        int shotLarry = scanner.nextInt();
+        printWriter.printf("%s %s%n", shotLarry - 1, shotGarry - 1);
         printWriter.flush();
     }
 }

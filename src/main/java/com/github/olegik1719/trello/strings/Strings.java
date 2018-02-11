@@ -4,7 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Strings {
-    
+    /**
+     * Count digits in string.
+     * Complexity is O(length).
+     * @param string to search digits
+     * @return count of digits.
+     */
     public static int countDigits(String string){
         int result = 0;
         for (int i = 0; i < string.length(); i++)
@@ -12,7 +17,12 @@ public class Strings {
         return result;
     }
 
-
+    /**
+     * Detect is the string palindrome or not
+     * Complexity is O(length)
+     * @param string for detection
+     * @return true if the string is palindrome, false otherwise
+     */
     public static boolean isPalindrome(String string){
         for (int i = 0; i < string.length()/2; i++) {
             if (string.charAt(i) != string.charAt(string.length() - 1 - i))
