@@ -18,7 +18,7 @@ import static java.lang.Math.abs;
  *  является ли последовательность кодом Грея.
  *
  *  В первой строке входного файла INPUT.TXT содержится число n.
- *  В следующей строке перечислены попарно различные числа ai.
+ *  В следующей строке перечислены попарно различные числа a_i.
  *  В третьей строке записано число m – количество перестановок, сделанных пользователем.
  *  В следующих m строках перечислены числа (i, j) – индексы переставляемых элементов.
  *  Ограничения: 1 ≤ n ≤ 16; 1 ≤ m ≤ 10^5; i≠j, 0 ≤ i, j < 2^n.
@@ -30,7 +30,7 @@ public class ACMP389 {
 
     private static boolean[] grayCheck;
     private static int[] grayArray;
-    private static int[] permutations;
+
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -41,51 +41,56 @@ public class ACMP389 {
             grayArray[i] = scanner.nextInt();
         }
         int mCount = scanner.nextInt();
-        permutations = new int[2*mCount];
+        int[] permutations = new int[2 * mCount];
         for (int i = 0; i<2*mCount;i++){
             permutations[i] = scanner.nextInt();
         }
-        grayCheck(grayArray);
+        grayMake();
         for (int i = 0; i < mCount; i++) {
-            printWriter.printf("%s%n",grayCheck(permutations[2*i],permutations[2*i+1])?"Yes":"No");
+            printWriter.printf("%s%n",grayPerm(permutations[2*i], permutations[2*i+1])?"Yes":"No");
         }
         printWriter.flush();
     }
 
-    private static boolean[] grayCheck(int[] grayArray){
+    private static boolean[] grayMake(){
         grayCheck = new boolean[grayArray.length];
         for (int i = 0; i < grayArray.length; i++) {
-            grayCheck(i);
+            grayTest(i);
         }
         return grayCheck;
     }
 
     private static boolean grayCheck(){
-        for (int i = 0; i < grayCheck.length; i++) {
-            if (!grayCheck[i]) return false;
+        for (boolean aGrayCheck : grayCheck) {
+            if (!aGrayCheck) return false;
         }
         return true;
     }
 
-    private static boolean grayCheck(int perm01, int perm02){
-        grayArray[perm01] = grayArray[perm01] + grayArray[perm02];
-        grayArray[perm02] = grayArray[perm01] - grayArray[perm02];
-        grayArray[perm01] = grayArray[perm01] - grayArray[perm02];
-        for (int i = -1; i < 2; i++) {
-            grayCheck(perm01 + i);
-            grayCheck(perm02 + i);
+    private static boolean grayPerm(int perm01, int perm02){
+        int temp = grayArray[perm01];
+        grayArray[perm01] = grayArray[perm02];
+        grayArray[perm02] = temp;
+        for (int i = -1; i < 1; i++) {
+            grayTest(perm01 + i);
+            grayTest(perm02 + i);
         }
         return grayCheck();
     }
 
-    private static boolean grayCheck(int indexToCheck){
-        int diff = (indexToCheck+1 >= grayArray.length||indexToCheck < 0)
-                ?abs(grayArray[indexToCheck%grayArray.length] - grayArray[(indexToCheck+1)%grayArray.length])
-                :abs(grayArray[indexToCheck] - grayArray[indexToCheck+1]);
+    private static boolean grayTest(int indexToCheck){
+        if (indexToCheck == -1){
+            indexToCheck = grayArray.length - 1;
+        }
+        int diff = indexToCheck == grayArray.length - 1
+                ?abs(grayArray[indexToCheck]
+                    - grayArray[0])
+                :abs(grayArray[indexToCheck]
+                    - grayArray[indexToCheck+1]);
+        if (diff == 0) return false;
         while (diff%2==0) {
             diff >>= 1;
         }
         return grayCheck[indexToCheck]=(diff == 1);
     }
-
 }
