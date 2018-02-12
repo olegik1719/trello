@@ -54,9 +54,21 @@ public class ACMP389 {
 
     private static boolean[] grayMake(){
         grayCheck = new boolean[grayArray.length];
-        for (int i = 0; i < grayArray.length; i++) {
-            grayTest(i);
+        for (int i = 0; i < grayArray.length-1; i++) {
+            int diff = abs(grayArray[i]
+                    - grayArray[i+1]);
+            if (diff == 0) grayCheck[i] = false;
+            while (diff%2==0) {
+                diff >>= 1;
+            }
+            grayCheck[i]=(diff == 1);
         }
+        int diff = abs(grayArray[grayCheck.length-1] - grayArray[0]);
+        if (diff == 0) grayCheck[grayCheck.length-1] = false;
+        while (diff%2==0) {
+            diff >>= 1;
+        }
+        grayCheck[grayCheck.length-1]=(diff == 1);
         return grayCheck;
     }
 
@@ -71,26 +83,7 @@ public class ACMP389 {
         int temp = grayArray[perm01];
         grayArray[perm01] = grayArray[perm02];
         grayArray[perm02] = temp;
-        for (int i = -1; i < 1; i++) {
-            grayTest(perm01 + i);
-            grayTest(perm02 + i);
-        }
+        grayMake();
         return grayCheck();
-    }
-
-    private static boolean grayTest(int indexToCheck){
-        if (indexToCheck == -1){
-            indexToCheck = grayArray.length - 1;
-        }
-        int diff = indexToCheck == grayArray.length - 1
-                ?abs(grayArray[indexToCheck]
-                    - grayArray[0])
-                :abs(grayArray[indexToCheck]
-                    - grayArray[indexToCheck+1]);
-        if (diff == 0) return false;
-        while (diff%2==0) {
-            diff >>= 1;
-        }
-        return grayCheck[indexToCheck]=(diff == 1);
     }
 }
