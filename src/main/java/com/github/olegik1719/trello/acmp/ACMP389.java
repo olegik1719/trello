@@ -52,7 +52,7 @@ public class ACMP389 {
         }
         grayMake();
         for (int i = 0; i < mCount; i++) {
-            printWriter.println(grayCheck(permutations[2*i], permutations[2*i+1])?"Yes":"No");
+            printWriter.println(grayCheck(permutations[2*i], permutations[2*i+1]));
         }
         printWriter.flush();
     }
@@ -63,7 +63,7 @@ public class ACMP389 {
         }
     }
    
-    private static boolean grayCheck(int perm01, int perm02){
+    private static String grayCheck(int perm01, int perm02){
         int temp = grayArray[perm01];
         grayArray[perm01] = grayArray[perm02];
         grayArray[perm02] = temp;
@@ -76,9 +76,9 @@ public class ACMP389 {
             while (grayBool[j++]){}
         }
         catch (Exception e){
-            return true;
+            return "Yes";
         }
-        return false;
+        return "No";
     }
    
     private static void grayCheck(int indexToCheck){
