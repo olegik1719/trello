@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class TwoBanditsTest {
+public class ACMP033Test {
 
 //    @Test
 //    public void nonShooted() {
