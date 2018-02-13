@@ -42,8 +42,9 @@ public class ACMP389 {
         }
         int mCount = scanner.nextInt();
         int[] permutations = new int[2 * mCount];
-        for (int i = 0; i<2*mCount;i++){
-            permutations[i] = scanner.nextInt();
+        for (int i = 0; i < mCount;i++){
+            permutations[2*i] = scanner.nextInt();
+            permutations[2*i+1] = scanner.nextInt();
         }
         grayMake();
         for (int i = 0; i < mCount; i++) {
@@ -52,25 +53,21 @@ public class ACMP389 {
         printWriter.flush();
     }
 
-    private static boolean[] grayMake(){
+    private static void grayMake(){
         grayCheck = new boolean[grayArray.length];
         for (int i = 0; i < grayArray.length-1; i++) {
-            int diff = abs(grayArray[i]
-                    - grayArray[i+1]);
-            if (diff == 0) grayCheck[i] = false;
-            while (diff%2==0) {
-                diff >>= 1;
-            }
-            grayCheck[i]=(diff == 1);
+            grayCheck[i]=isPow2(grayArray[i] ^ grayArray[i+1]);
         }
-        int diff = abs(grayArray[grayCheck.length-1] - grayArray[0]);
-        if (diff == 0) grayCheck[grayCheck.length-1] = false;
-        while (diff%2==0) {
-            diff >>= 1;
-        }
-        grayCheck[grayCheck.length-1]=(diff == 1);
-        return grayCheck;
+        grayCheck[grayCheck.length-1]=isPow2(grayArray[grayCheck.length-1] ^ grayArray[0]);
     }
+
+//    private static void grayMake(int index){
+//        if (index + 1 < grayCheck.length){
+//            grayCheck[index]=isPow2(grayArray[index]^grayArray[index + 1]);
+//        }else {
+//            grayCheck[index] = isPow2(grayArray[index] ^ grayArray[0]);
+//        }
+//    }
 
     private static boolean grayCheck(){
         for (boolean aGrayCheck : grayCheck) {
@@ -84,6 +81,19 @@ public class ACMP389 {
         grayArray[perm01] = grayArray[perm02];
         grayArray[perm02] = temp;
         grayMake();
+//        for (int i = 0; i < 2; i++) {
+//            grayMake(perm01 + i - 1);
+//            grayMake(perm02 + i - 1);
+//        }
         return grayCheck();
+    }
+
+    private static boolean isPow2(int power){
+        //power = abs(power);
+        if (power == 0) grayCheck[grayCheck.length-1] = false;
+        while (power%2==0) {
+            power >>>= 1;
+        }
+        return power == 1;
     }
 }
