@@ -3,8 +3,6 @@ package com.github.olegik1719.trello.acmp;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
-import static java.lang.Math.abs;
-
 /**
  * https://acmp.ru/index.asp?main=task&id_task=389
  *  Рассмотрим циклическую последовательность попарно различных чисел {a_0, a_1, … , a_(2^n-1)}, 0 ≤ a_i ≤ 2^n-1.
@@ -42,58 +40,55 @@ public class ACMP389 {
         }
         int mCount = scanner.nextInt();
         int[] permutations = new int[2 * mCount];
-        for (int i = 0; i < mCount;i++){
-            permutations[2*i] = scanner.nextInt();
-            permutations[2*i+1] = scanner.nextInt();
+        for (int i = 0; i<2*mCount;i++){
+            permutations[i] = scanner.nextInt();
         }
         grayMake();
         for (int i = 0; i < mCount; i++) {
-            printWriter.printf("%s%n",grayPerm(permutations[2*i], permutations[2*i+1])?"Yes":"No");
+            printWriter.printf("%s%n",grayCheck(permutations[2*i], permutations[2*i+1])?"Yes":"No");
         }
         printWriter.flush();
     }
 
     private static void grayMake(){
         grayCheck = new boolean[grayArray.length];
-        for (int i = 0; i < grayArray.length-1; i++) {
-            grayCheck[i]=isPow2(grayArray[i] ^ grayArray[i+1]);
+        for (int i = 0; i < grayArray.length; i++) {
+            grayCheck(i);
         }
-        grayCheck[grayCheck.length-1]=isPow2(grayArray[grayCheck.length-1] ^ grayArray[0]);
     }
 
-//    private static void grayMake(int index){
-//        if (index + 1 < grayCheck.length){
-//            grayCheck[index]=isPow2(grayArray[index]^grayArray[index + 1]);
-//        }else {
-//            grayCheck[index] = isPow2(grayArray[index] ^ grayArray[0]);
-//        }
-//    }
-
     private static boolean grayCheck(){
-        for (boolean aGrayCheck : grayCheck) {
-            if (!aGrayCheck) return false;
+        for (int i = 0; i < grayCheck.length; i++) {
+            if (!grayCheck[i]) return false;
         }
         return true;
     }
 
-    private static boolean grayPerm(int perm01, int perm02){
+    private static int abs(int a) {
+        return (a < 0) ? -a : a;
+    }
+
+    private static boolean grayCheck(int perm01, int perm02){
         int temp = grayArray[perm01];
         grayArray[perm01] = grayArray[perm02];
         grayArray[perm02] = temp;
-        grayMake();
-//        for (int i = 0; i < 2; i++) {
-//            grayMake(perm01 + i - 1);
-//            grayMake(perm02 + i - 1);
-//        }
+        for (int i = -1; i < 1; i++) {
+            grayCheck(perm01 + i);
+            grayCheck(perm02 + i);
+        }
         return grayCheck();
     }
 
-    private static boolean isPow2(int power){
-        //power = abs(power);
-        if (power == 0) grayCheck[grayCheck.length-1] = false;
-        while (power%2==0) {
-            power >>>= 1;
+    private static void grayCheck(int indexToCheck){
+        if (indexToCheck == -1){
+            indexToCheck += grayArray.length;
         }
-        return power == 1;
+        int diff = indexToCheck + 1 >= grayArray.length
+                ?abs(grayArray[indexToCheck] ^ grayArray[0])
+                :abs(grayArray[indexToCheck] ^ grayArray[indexToCheck+1]);
+        while (diff%2==0) {
+            diff >>>= 1;
+        }
+        grayCheck[indexToCheck]=(diff == 1);
     }
 }
