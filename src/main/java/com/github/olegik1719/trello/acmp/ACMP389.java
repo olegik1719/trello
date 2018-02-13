@@ -61,58 +61,29 @@ public class ACMP389 {
         int temp = grayArray[perm01];
         grayArray[perm01] = grayArray[perm02];
         grayArray[perm02] = temp;
-        grayCheck(perm01 - 1);
-        grayCheck(perm02 - 1);
-        grayCheck(perm01);
-        grayCheck(perm02);
-        try {
-            j = 0;
-            while (grayBool[j++]){}
-        }
-        catch (Exception e){
-            return "Yes\n";
-        }
-        return "No\n";
+        if (grayCheck(perm01 - 1) & grayCheck(perm02 - 1) & grayCheck(perm01) & grayCheck(perm02)) {
+            try {
+                j = 0;
+                while (grayBool[j++]) {
+                }
+            } catch (Exception e) {
+                return "Yes\n";
+            }
+        }else {
+            return "No\n";
+        }return "Yes\n";
     }
 
-    private static void grayCheck(int indexToCheck){
+    private static boolean grayCheck(int indexToCheck){
         try{
-            diff = grayArray[indexToCheck+1] ^ grayArray[indexToCheck];
-            if (diff == 1) grayBool[indexToCheck] = true;
-            else if (diff <= 2) grayBool[indexToCheck] = diff == 2;
-            else if (diff <= 4) grayBool[indexToCheck] = diff == 4;
-            else if (diff <= 8) grayBool[indexToCheck] = diff == 8;
-            else if (diff <= 16) grayBool[indexToCheck] = diff == 16;
-            else if (diff <= 32) grayBool[indexToCheck] = diff == 32;
-            else if (diff <= 64) grayBool[indexToCheck] = diff == 64;
-            else if (diff <= 128) grayBool[indexToCheck] = diff == 128;
-            else if (diff <= 256) grayBool[indexToCheck] = diff == 256;
-            else if (diff <= 512) grayBool[indexToCheck] = diff == 512;
-            else if (diff <= 1024) grayBool[indexToCheck] = diff == 1024;
-            else if (diff <= 2048) grayBool[indexToCheck] = diff == 2048;
-            else if (diff <= 4096) grayBool[indexToCheck] = diff == 4096;
-            else if (diff <= 8192) grayBool[indexToCheck] = diff == 8192;
-            else if (diff <= 16384) grayBool[indexToCheck] = diff == 16384;
-            else grayBool[indexToCheck] = diff == 32768;
+            diff = (char)grayArray[indexToCheck+1] ^ (char)grayArray[indexToCheck];
+            while (diff %2 == 0) diff >>>=1;
+            return grayBool[indexToCheck]=diff==1;
 
         }catch (Exception e){
-            diff = grayArray[lastIndex] ^ grayArray[0];
-            if (diff == 1) grayBool[lastIndex] = true;
-            else if (diff <= 2) grayBool[lastIndex] = diff == 2;
-            else if (diff <= 4) grayBool[lastIndex] = diff == 4;
-            else if (diff <= 8) grayBool[lastIndex] = diff == 8;
-            else if (diff <= 16) grayBool[lastIndex] = diff == 16;
-            else if (diff <= 32) grayBool[lastIndex] = diff == 32;
-            else if (diff <= 64) grayBool[lastIndex] = diff == 64;
-            else if (diff <= 128) grayBool[lastIndex] = diff == 128;
-            else if (diff <= 256) grayBool[lastIndex] = diff == 256;
-            else if (diff <= 512) grayBool[lastIndex] = diff == 512;
-            else if (diff <= 1024) grayBool[lastIndex] = diff == 1024;
-            else if (diff <= 2048) grayBool[lastIndex] = diff == 2048;
-            else if (diff <= 4096) grayBool[lastIndex] = diff == 4096;
-            else if (diff <= 8192) grayBool[lastIndex] = diff == 8192;
-            else if (diff <= 16384) grayBool[lastIndex] = diff == 16384;
-            else grayBool[lastIndex] = diff == 32768;
+            diff = (char)grayArray[lastIndex] ^ (char)grayArray[0];
+            while (diff %2 == 0) diff >>>=1;
+            return grayBool[lastIndex]=diff==1;
         }
     }
 }

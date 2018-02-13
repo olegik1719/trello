@@ -13,8 +13,8 @@ public class ACMP389Test {
         int nSize = 1 << 0;
 
         System.out.printf("%s%n", 0 ^ 65535);
-        System.out.printf("%s%n", 1 ^ 3);
-        System.out.printf("%s%n", 3 ^ 2);
+        System.out.printf("%s%n", (short)65535);
+        System.out.printf("%s%n", (short) 32768);
         System.out.printf("%s%n", 2 ^ 0);
     }
 }
