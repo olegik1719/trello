@@ -3,6 +3,8 @@ package com.github.olegik1719.trello.acmp;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
+import java.util.HashSet;
+
 /**
  * https://acmp.ru/index.asp?main=task&id_task=389
  *  Рассмотрим циклическую последовательность попарно различных чисел {a_0, a_1, … , a_(2^n-1)}, 0 ≤ a_i ≤ 2^n-1.
@@ -26,8 +28,9 @@ import java.util.Scanner;
  */
 public class ACMP389 {
 
-    private static boolean[] grayCheck;
+   // private static boolean[] grayCheck;
     private static int[] grayArray;
+    private static HashSet<Integer> grayBroke;
 
 
     public static void main(String[] args) {
@@ -51,21 +54,10 @@ public class ACMP389 {
     }
 
     private static void grayMake(){
-        grayCheck = new boolean[grayArray.length];
+        grayBroke = new HashSet<>();
         for (int i = 0; i < grayArray.length; i++) {
             grayCheck(i);
         }
-    }
-
-    private static boolean grayCheck(){
-        for (int i = 0; i < grayCheck.length; i++) {
-            if (!grayCheck[i]) return false;
-        }
-        return true;
-    }
-
-    private static int abs(int a) {
-        return (a < 0) ? -a : a;
     }
 
     private static boolean grayCheck(int perm01, int perm02){
@@ -76,7 +68,7 @@ public class ACMP389 {
             grayCheck(perm01 + i);
             grayCheck(perm02 + i);
         }
-        return grayCheck();
+        return grayBroke.isEmpty();
     }
 
     private static void grayCheck(int indexToCheck){
@@ -84,11 +76,12 @@ public class ACMP389 {
             indexToCheck += grayArray.length;
         }
         int diff = indexToCheck + 1 >= grayArray.length
-                ?abs(grayArray[indexToCheck] ^ grayArray[0])
-                :abs(grayArray[indexToCheck] ^ grayArray[indexToCheck+1]);
-        while (diff%2==0) {
+                ?grayArray[indexToCheck] ^ grayArray[0]
+                :grayArray[indexToCheck] ^ grayArray[indexToCheck+1];
+        while (diff % 2  == 0) {
             diff >>>= 1;
         }
-        grayCheck[indexToCheck]=(diff == 1);
+        if (diff == 1) grayBroke.remove(indexToCheck);
+        else grayBroke.add(indexToCheck);
     }
 }
