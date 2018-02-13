@@ -26,21 +26,25 @@ import java.util.HashSet;
  *  В выходной файл OUTPUT.TXT запишите m строчек – в i-той строке запишите «Yes»,
  *  если после i-той перестановки последовательность стала кодом Грея и «No» в противном случае.
  */
+
 public class ACMP389 {
-
-   // private static boolean[] grayCheck;
+   
     private static int[] grayArray;
-    private static HashSet<Integer> grayBroke;
-
-
+    private static boolean[] grayBool;
+    private static int nSize;
+    private static int lastIndex;
+   
+   
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         PrintWriter printWriter = new PrintWriter(System.out);
-        int nSize = 1 << scanner.nextInt();
+        nSize = 1 << scanner.nextInt();
+        grayBool = new boolean[nSize];
         grayArray = new int[nSize];
         for (int i = 0; i < nSize; i++){
             grayArray[i] = scanner.nextInt();
         }
+        lastIndex = nSize - 1;
         int mCount = scanner.nextInt();
         int[] permutations = new int[2 * mCount];
         for (int i = 0; i<2*mCount;i++){
@@ -48,32 +52,38 @@ public class ACMP389 {
         }
         grayMake();
         for (int i = 0; i < mCount; i++) {
-            printWriter.printf("%s%n",grayCheck(permutations[2*i], permutations[2*i+1])?"Yes":"No");
+            printWriter.println(grayCheck(permutations[2*i], permutations[2*i+1])?"Yes":"No");
         }
         printWriter.flush();
     }
-
+   
     private static void grayMake(){
-        grayBroke = new HashSet<>();
-        for (int i = 0; i < grayArray.length; i++) {
+        for (int i = 0; i < nSize; i++) {
             grayCheck(i);
         }
     }
-
+   
     private static boolean grayCheck(int perm01, int perm02){
         int temp = grayArray[perm01];
         grayArray[perm01] = grayArray[perm02];
         grayArray[perm02] = temp;
-        for (int i = -1; i < 1; i++) {
-            grayCheck(perm01 + i);
-            grayCheck(perm02 + i);
+        grayCheck(perm01 - 1);
+        grayCheck(perm02 - 1);
+        grayCheck(perm01);
+        grayCheck(perm02);
+        int j = 0;
+        try {
+            while (grayBool[j++]){}
         }
-        return grayBroke.isEmpty();
+        catch (Exception e){
+            return true;
+        }
+        return false;
     }
-
+   
     private static void grayCheck(int indexToCheck){
         if (indexToCheck == -1){
-            indexToCheck += grayArray.length;
+            indexToCheck = lastIndex;
         }
         int diff = indexToCheck + 1 >= grayArray.length
                 ?grayArray[indexToCheck] ^ grayArray[0]
@@ -81,7 +91,6 @@ public class ACMP389 {
         while (diff % 2  == 0) {
             diff >>>= 1;
         }
-        if (diff == 1) grayBroke.remove(indexToCheck);
-        else grayBroke.add(indexToCheck);
+        grayBool[indexToCheck] = (diff == 1);
     }
 }
