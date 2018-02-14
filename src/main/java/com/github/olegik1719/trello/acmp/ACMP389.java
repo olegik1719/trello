@@ -80,3 +80,63 @@ public class ACMP389 {
         }
     }
 }
+/* Ради пОнта! Ради =) Код, который стал победителем среди Java-кодов в задаче.
+   В общем... На память=) О том, как писать НЕ НАДО!
+import java.io.PrintWriter;
+import java.util.Scanner;
+
+import java.util.HashSet;
+
+public class Main {
+
+
+    static HashSet<Integer> a = new HashSet<>();
+    static int[] b;
+    static int d;
+    static int e;
+
+    public static void main(String[] args) {
+        Scanner f = new Scanner(System.in);
+        PrintWriter g = new PrintWriter(System.out);
+        int c = 1 << f.nextInt();
+        b = new int[c];
+        for (int i = 0; i < c; i++){
+            b[i] = f.nextInt();
+        }
+        d = c - 1;
+        for (int i = 0; i < c; i++) {
+            h(i);
+        }
+        int k = f.nextInt();
+        for (int i = 0; i<k;i++)
+            g.print(h(f.nextInt(), f.nextInt()));
+        g.flush();
+    }
+
+    static String h(int l, int m){
+        b[l] = b[l]^ b[m];
+        b[m] = b[l]^ b[m];
+        b[l] = b[l]^ b[m];
+        h(l - 1);
+        h(m - 1);
+        h(l);
+        h(m);
+        if (a.isEmpty()) return "Yes\n";
+        return "No\n";
+    }
+
+    static void h(int n){
+        try{
+            e = b[n+1] ^ b[n];
+            while (e %2 == 0) e >>>=1;
+            if (e == 1) a.remove(n);
+            else a.add(n);
+        }catch (Exception z){
+            e = b[d] ^ b[0];
+            while (e %2 == 0) e >>>=1;
+            if (e == 1) a.remove(d);
+            else a.add(d);
+        }
+    }
+}
+ */
