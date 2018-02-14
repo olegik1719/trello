@@ -1,8 +1,8 @@
 package com.github.olegik1719.trello.acmp;
 
 import java.io.PrintWriter;
+import java.util.HashSet;
 import java.util.Scanner;
-import java.util.TreeSet;
 
 
 /**
@@ -29,22 +29,16 @@ import java.util.TreeSet;
 
 public class ACMP389 {
 
-    private static TreeSet<Integer> grayBroke = new TreeSet<>();
+    private static HashSet<Integer> grayBroke = new HashSet<>();
     private static int[] grayArray;
-   // private static boolean[] grayBool;
     private static int nSize;
     private static int lastIndex;
     private static int diff;
-    //private static int j;
-   // private static int[] pow2 = {1,2,4,8,16,32,64,128,256,512,1024,2048,4096,8192,16384,32768};
-    //private static int temp;
-
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         PrintWriter printWriter = new PrintWriter(System.out);
         nSize = 1 << scanner.nextInt();
-        //grayBool = new boolean[nSize];
         grayArray = new int[nSize];
         for (int i = 0; i < nSize; i++){
             grayArray[i] = scanner.nextInt();
@@ -60,46 +54,29 @@ public class ACMP389 {
     }
 
     private static String grayCheck(int perm01, int perm02){
-        //int temp = grayArray[perm01];
+
         grayArray[perm01] = grayArray[perm01]^grayArray[perm02];
         grayArray[perm02] = grayArray[perm01]^grayArray[perm02];
         grayArray[perm01] = grayArray[perm01]^grayArray[perm02];
-        int dt = perm01 - perm02;
-        if (dt == 1) {
-            if (grayCheck(perm02 - 1) & grayCheck(perm02) & grayCheck(perm01)) {
-                if (grayBroke.isEmpty()) return "Yes\n";
-            //}else {
-            //    return "No\n";
-            }return "No\n";
-        }
-        if (dt == -1) {
-            if (grayCheck(perm01 - 1) & grayCheck(perm01) & grayCheck(perm02)) {
-                if (grayBroke.isEmpty()) return "Yes\n";
-                //}else {
-                //    return "No\n";
-            }return "No\n";
-        }
-        if (grayCheck(perm01 - 1) & grayCheck(perm02 - 1) & grayCheck(perm01) & grayCheck(perm02)) {
-            if (grayBroke.isEmpty()) return "Yes\n";
-            //}else {
-            //    return "No\n";
-        }return "No\n";
+        grayCheck(perm01 - 1);
+        grayCheck(perm02 - 1);
+        grayCheck(perm01);
+        grayCheck(perm02);
+        if (grayBroke.isEmpty()) return "Yes\n";
+        return "No\n";
     }
 
-    private static boolean grayCheck(int indexToCheck){
+    private static void grayCheck(int indexToCheck){
         try{
             diff = grayArray[indexToCheck+1] ^ grayArray[indexToCheck];
             while (diff %2 == 0) diff >>>=1;
             if (diff == 1) grayBroke.remove(indexToCheck);
             else grayBroke.add(indexToCheck);
-            return diff==1;
-
         }catch (Exception e){
             diff = grayArray[lastIndex] ^ grayArray[0];
             while (diff %2 == 0) diff >>>=1;
             if (diff == 1) grayBroke.remove(lastIndex);
             else grayBroke.add(lastIndex);
-            return diff==1;
         }
     }
 }
