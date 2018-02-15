@@ -24,19 +24,56 @@ import java.util.Scanner;
  */
 
 public class ACMP010 {
+	
+	static int origA;
+	static int origB;
+	static int origC;
+	static int origD;
+	
     public static void main(String...args){
         Scanner sc = new Scanner(System.in);
         PrintWriter pw = new PrintWriter(System.out);
-        int A = sc.nextInt();
-        int B = sc.nextInt();
-        int C = sc.nextInt();
-        int D = sc.nextInt();
-        pw.println(check(A,B,C,D));
+        origA = sc.nextInt();
+        origB = sc.nextInt();
+        origC = sc.nextInt();
+        origD = sc.nextInt();
+        pw.println(doIt());
         pw.flush();
     }
 
-    static String check(int A, int B, int C, int D){
+    static String doIt(){
+		int B = origB / origA;
+		int C = origC / origA;
+		int D = origD / origA;
+		//X^3 + B*x^2 + C*X + D = 0
+		int[] solve = new int[3];
+		if (D == 0){
+			//X^3 + B*X^2 + C*X = 0
+			solve[0] = 0;
+			if (C == 0){
+				solve[1] == 0;
+				if (B == 0){
+					solve[2] == 0;
+				}else{
+					solve[2] == -B;
+				}
+			}else{
+				int diskriminant = B*B - 4*C;
+				solve[1] = (-B + Math.sqrt(diskriminant))/2;
+				solve[2] = (-B - Math.sqrt(diskriminant))/2;
+			}
+		}else{
+			int x = 1;
+			int index = 0;
+			while (x <= 100 && index < 3){
+				if ( D%x == 0 ){
+					... 
+		}
         return null;
     }
+	
+	static boolean checkSolve(int x){
+		return origA * x^3 + origB * x^2 + origC * x + origD
+	}
 
 }
