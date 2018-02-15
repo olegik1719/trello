@@ -24,3 +24,6 @@ hs_err_pid*
 # Idea files
 *.iml
 .idea/
+
+# tests in notepad++
+Main.java
