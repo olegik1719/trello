@@ -1,4 +1,4 @@
-//package com.github.olegik1719.trello.acmp;
+package com.github.olegik1719.trello.acmp;
 
 import java.io.PrintWriter;
 import java.util.Scanner;
