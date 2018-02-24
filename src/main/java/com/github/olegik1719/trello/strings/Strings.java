@@ -43,4 +43,15 @@ public class Strings {
         return result;
     }
 
+    /**
+     * For this hash we will use next algorithm:
+     * Hash(String) = sum[(a_n - 'D')*67^(n+1)]
+     * @param string to hash
+     * @return HashCode by algorithm
+     */
+
+    public static Integer hashcode(String string){
+        return null;
+    }
+
 }
